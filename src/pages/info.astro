@@ -1,0 +1,161 @@
+﻿---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Info">
+  <main>
+    <h1>Info</h1>
+    <h2>Algemeen schema</h2>
+    <div id="schedule">
+      <div id="timeline"></div>
+      <time>16:00</time>
+      <div class="info">
+        <h3>Start loopwedstrijd</h3>
+        <p>Start loopwedstrijd 16km en 8km.</p>
+      </div>
+      <time>19:00</time>
+      <div class="info">
+        <h3>Start maaltijd</h3>
+        <p>Heerlijke Tartiflette of Schnitzel.</p>
+      </div>
+      <time>22:00</time>
+      <div class="info">
+        <h3>Start Oktoberfest</h3>
+        <p>Ein Prosit!</p>
+      </div>
+    </div>
+    <p>
+      Op
+      <time>zaterdag 23 september 2023</time>
+      organiseren wij met <a
+        href="https://lcdestresskikkers.be/"
+        target="_blank">LC de StreSSkikkerS</a
+      > onze eerse editie van de <strong>Ten Miles</strong> fun run!
+    </p>
+    <p>
+      Om <strong>
+        <time>16:00u</time>
+      </strong> gaan we van start met de loopwedstrijd aan <a
+        href="https://www.google.com/maps?ll=50.881013,2.815671&z=17&t=m&hl=nl&gl=US&mapclient=embed&q=50%C2%B052%2751.6%22N+2%C2%B048%2756.4%22E+50.880994,+2.815664@50.880994,2.815664"
+        target="_blank">OC Den Elver</a
+      >.
+    </p>
+    <p>
+      Deelnemers kunnen zich wagen aan de enige echte <strong
+        >Ten miles (16km)</strong
+      > of het even <em>stoere 8km</em> parkoers.
+    </p>
+    <p>
+      Na afloop van de wedstrijd kunnen de deelnemers zich opfrissen (lees:
+      douchen) en starten we aansluitend met onze maaltijd en Oktoberfest.
+    </p>
+    <p>
+      Tot in de vroege uurtjes genieten we van heerlijke halve liters gerstenat,
+      Duitse hits en veel ambiance!
+    </p>
+  </main>
+</Layout>
+<style>
+  main {
+    margin: 0 var(--unit-2);
+    padding: var(--unit-2) 0;
+    max-width: var(--container);
+  }
+
+  main h1 {
+    margin: 0;
+  }
+
+  #schedule {
+    display: grid;
+    grid-template-columns: 1fr var(--unit) 1fr;
+    grid-template-rows: repeat(8, auto);
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  #timeline {
+    background-color: var(--primary);
+    width: 1px;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 9;
+    justify-self: center;
+  }
+
+  #schedule time {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    background-color: var(--primary);
+    line-height: 1.5;
+    font-size: calc(var(--unit-2) / 1.2);
+    text-transform: uppercase;
+    font-family: var(--heading-font);
+    font-weight: 600;
+    color: var(--white);
+    text-align: center;
+    display: inline-block;
+  }
+
+  #schedule .info {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    padding: var(--unit) 0;
+    text-align: center;
+    display: inline-block;
+  }
+
+  h3 {
+    font-family: var(--heading-font);
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  #schedule time:nth-of-type(1) {
+    grid-row-start: 1;
+    grid-row-end: 1;
+  }
+
+  @media screen and (min-width: 960px) {
+    main {
+      margin: 0 auto;
+    }
+
+    #schedule {
+      margin: var(--unit-3) auto;
+      max-width: 960px;
+    }
+
+    #schedule time:nth-of-type(1) {
+      grid-column-end: 1;
+    }
+
+    #schedule .info:nth-of-type(2) {
+      grid-column-end: 1;
+    }
+
+    #schedule time:nth-of-type(2) {
+      grid-column-start: 3;
+      grid-row-start: 3;
+    }
+
+    #schedule .info:nth-of-type(3) {
+      grid-row-start: 4;
+      grid-column-start: 3;
+    }
+
+    #schedule time:nth-of-type(3) {
+      grid-row-start: 5;
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
+
+    #schedule .info:nth-of-type(4) {
+      grid-row-start: 6;
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
+  }
+</style>

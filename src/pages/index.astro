@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Home">
+  <main>
+    <small
+      ><a href="https://lcdestresskikkers.be/" target="_blank"
+        >LC de StreSSkikkerS</a
+      ><br />presenteren</small
+    >
+    <h1>de Ten Miles van Elverdinge</h1>
+    <h2>
+      <time>23/09/2023</time>
+    </h2>
+  </main>
+</Layout>
+<style>
+  main {
+    background-color: var(--primary);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  main small {
+    color: var(--dark);
+    text-align: center;
+  }
+
+  main small a {
+    color: var(--dark);
+  }
+
+  main h1,
+  main h2 {
+    font-size: var(--heading-font);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  main h1 {
+    font-size: var(--unit-3);
+    text-align: center;
+  }
+
+  main h2 {
+    font-size: var(--unit-3);
+    text-align: center;
+    margin: 0;
+  }
+</style>

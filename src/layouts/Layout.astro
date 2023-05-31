@@ -1,0 +1,167 @@
+﻿---
+import { Icon } from "astro-iconify";
+const { title } = Astro.props;
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1); // remove the first "/"
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | Ten miles Elverdinge</title>
+    <link rel="icon" href="/favicon.ico?v" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav>
+      <a href="/" class={currentPath === "" ? "active" : ""}> Home</a>
+      <a href="/info" class={currentPath === "info" ? "active" : ""}>Info</a>
+      <button>
+        <Icon id="mobile-toggle" pack="codicon" name="three-bars" />
+      </button>
+      <!--<a href="#">Parkoers</a>-->
+      <!--<a href="#">Sponsors</a>-->
+    </nav>
+    <slot />
+  </body>
+</html>
+<style is:global>
+  :root {
+    --primary: #b7f4d8;
+    --primary-hover: #f9fefc;
+    --primary-border: #75eab4;
+    --dark: #333333;
+    --dark-hover: #595959;
+    --dark-border: #0d0d0d;
+    --white: white;
+    --unit: 1rem;
+    --unit-2: 2rem;
+    --unit-3: 3rem;
+    --unit-4: 4rem;
+    --container: 1024px;
+    --heading-font: "Barlow", sans-serif;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    font-family: var(--font);
+    line-height: 1.4;
+  }
+
+  body {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav {
+    background-color: var(--dark);
+  }
+
+  nav > a {
+    display: none;
+    height: var(--unit-4);
+    line-height: var(--unit-4);
+    font-size: var(--unit-2);
+    font-family: var(--heading-font);
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    padding: 0 var(--unit);
+    transition: background-color 200ms, width 200ms;
+  }
+
+  nav > a:hover {
+    background-color: var(--primary);
+  }
+
+  nav > a:active {
+    font-weight: bolder;
+  }
+
+  nav > a:first-child {
+    display: inline-block;
+  }
+
+  nav > a.active {
+    background-color: var(--primary);
+  }
+
+  nav.open > a {
+    display: block;
+  }
+
+  nav > button {
+    font-size: var(--unit);
+    position: fixed;
+    right: var(--unit);
+    top: var(--unit);
+    display: block;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    color: var(--white);
+    transition: color 400ms;
+    cursor: pointer;
+  }
+
+  nav > button:hover {
+    color: var(--primary);
+  }
+
+  nav > button:active {
+    color: var(--primary-border);
+  }
+
+  nav.open > button:active {
+    color: var(--dark);
+  }
+
+  nav button svg {
+    display: inline-block;
+    height: var(--unit-2);
+    width: var(--unit-2);
+  }
+
+  @media screen and (min-width: 960px) {
+    nav button {
+      display: none;
+    }
+
+    nav {
+      font-size: 0;
+    }
+
+    nav > a {
+      display: inline-block;
+    }
+  }
+
+  main {
+    flex: 1;
+  }
+</style>
+<script>
+  const btn = document.querySelector("nav > button");
+  console.log(btn);
+  const nav = document.querySelector("nav");
+  btn.addEventListener("click", () => {
+    nav.classList.toggle("open");
+  });
+</script>

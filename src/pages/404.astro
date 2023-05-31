@@ -1,0 +1,38 @@
+﻿---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Not found">
+  <main>
+    <h1>Ow zekers, deze pagina hebben we niet.</h1>
+    <picture>
+      <source
+        srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f438/512.webp"
+        type="image/webp"
+      />
+      <img
+        src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f438/512.gif"
+        alt="🐸"
+        width="64"
+        height="64"
+      />
+    </picture>
+    <p>Terug naar the <a href="/">homepagina</a>.</p>
+  </main>
+</Layout>
+<style>
+  main {
+    max-width: var(--container);
+    padding: var(--unit-2);
+  }
+
+  h1 {
+    display: inline-block;
+  }
+
+  picture {
+    display: inline-block;
+    transform: translateY(var(--unit));
+    margin-left: var(--unit);
+  }
+</style>
