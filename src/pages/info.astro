@@ -56,16 +56,6 @@ import Layout from "../layouts/Layout.astro";
   </main>
 </Layout>
 <style>
-  main {
-    margin: 0 var(--unit-2);
-    padding: var(--unit-2) 0;
-    max-width: var(--container);
-  }
-
-  main h1 {
-    margin: 0;
-  }
-
   #schedule {
     display: grid;
     grid-template-columns: 1fr var(--unit) 1fr;
@@ -119,10 +109,6 @@ import Layout from "../layouts/Layout.astro";
   }
 
   @media screen and (min-width: 960px) {
-    main {
-      margin: 0 auto;
-    }
-
     #schedule {
       margin: var(--unit-3) auto;
       max-width: 960px;
