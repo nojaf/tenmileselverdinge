@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
+import { addDoc } from "firebase/firestore/lite";
+import { ordersCollections } from "../firebase-config.js";
 
 const ticketTypes = {
   "race-schnitzel": {
@@ -137,22 +139,13 @@ function Minus() {
   );
 }
 
-// Sample: https://github.com/react-hook-form/react-hook-form/blob/master/examples/V7/FieldArray.tsx
 function TicketForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm();
+  const { register, handleSubmit, control } = useForm();
+  const [currentState, setCurrentState] = useState("form");
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: "tickets",
   });
-
-  useEffect(() => {
-    append({ type: "schnitzel", amount: 3 });
-  }, []);
 
   const removeTicket = (removeIdx) => {
     remove(removeIdx);
@@ -183,257 +176,296 @@ function TicketForm() {
     }
   };
 
-  const onSubmit = (data) => {
-    console.table(data.tickets);
+  const onSubmit = async (data) => {
+    try {
+      console.log(data);
+      console.table(data.tickets);
+      setCurrentState("loading");
+      const document = await addDoc(ordersCollections, data);
+      const orderId = document.id;
+      console.log(orderId);
+      console.log("Order created in FireBase, use ID to create payment");
+    } catch (error) {
+      console.error(error);
+      setCurrentState("error");
+    }
   };
 
-  return (
-    <>
-      <AddTicket
-        onSelect={(newTicket) => {
-          if (newTicket.startsWith("race")) {
-            append({ type: newTicket, amount: 1 });
-          } else {
-            const existingTicket = fields.find(
-              (ticket) => ticket.type === newTicket
-            );
-            if (existingTicket) {
-              update(
-                fields.findIndex((ticket) => ticket.type === newTicket),
-                { ...existingTicket, amount: existingTicket.amount + 1 }
-              );
-            } else {
-              append({ type: newTicket, amount: 1 });
-            }
-          }
-        }}
-      />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {fields.map((field, idx) => {
-          const ticketType = ticketTypes[field.type];
-          const hasRace = field.type.startsWith("race");
-          const price = hasRace
-            ? ticketType.price
-            : ticketType.price * field.amount;
+  switch (currentState) {
+    case "error":
+      return (
+        <div id="error">
+          <h2>Yikes, er ging iets mis</h2>
+          <p>
+            Er ging iets mis bij het verwerken van je bestelling. Probeer het
+            later opnieuw aub. <br />
+            Indien het probleem zich blijft voordoen kan je contact opnemen via{" "}
+            <a href="mailto:info@tenmileselverdinge.be">
+              info@tenmileselverdinge.be
+            </a>
+          </p>
+        </div>
+      );
+    case "loading":
+      return (
+        <div className="loading">
+          <div></div>
+        </div>
+      );
+    default:
+      return (
+        <>
+          <AddTicket
+            onSelect={(newTicket) => {
+              if (newTicket.startsWith("race")) {
+                append({ type: newTicket, amount: 1 });
+              } else {
+                const existingTicket = fields.find(
+                  (ticket) => ticket.type === newTicket
+                );
+                if (existingTicket) {
+                  update(
+                    fields.findIndex((ticket) => ticket.type === newTicket),
+                    { ...existingTicket, amount: existingTicket.amount + 1 }
+                  );
+                } else {
+                  append({ type: newTicket, amount: 1 });
+                }
+              }
+            }}
+          />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {fields.map((field, idx) => {
+              const ticketType = ticketTypes[field.type];
+              const hasRace = field.type.startsWith("race");
+              const price = hasRace
+                ? ticketType.price
+                : ticketType.price * field.amount;
 
-          return (
-            <div key={field.id} className={"ticket"}>
-              <div className="heading">
-                {!hasRace && <strong>{`${field.amount} x `} </strong>}
-                {!hasRace && (
-                  <strong
-                    className={"plus"}
-                    onClick={() => {
-                      increaseAmount(idx);
-                    }}
-                  >
-                    <Plus />
-                  </strong>
-                )}
-                {!hasRace && (
-                  <strong
-                    className={"minus"}
-                    onClick={() => {
-                      decreaseAmount(idx);
-                    }}
-                  >
-                    <Minus />
-                  </strong>
-                )}
-                <h3>{ticketType.title}</h3>
-                <div>
-                  <strong>€{price}</strong>
-                  <strong onClick={() => removeTicket(idx)} className="delete">
-                    <TrashCan />
-                  </strong>
-                </div>
-                <input
-                  type={"hidden"}
-                  {...register(`tickets.${idx}.type`, { required: true })}
-                />
-                <input
-                  type={"hidden"}
-                  {...register(`tickets.${idx}.amount`, { required: true })}
-                />
-              </div>
-              {hasRace && (
-                <div className="body">
-                  <div>
-                    <label className={"required"}>Afstand</label>
-                    <div className="radio-container">
-                      <input
-                        {...register(`tickets.${idx}.distance`, {
-                          required: true,
-                        })}
-                        type="radio"
-                        value={"10miles"}
-                        id={`tickets.${idx}.distance-10miles`}
-                        defaultChecked={true}
-                      />
-                      <label
-                        className={"radio"}
-                        htmlFor={`tickets.${idx}.distance-10miles`}
+              return (
+                <div key={field.id} className={"ticket"}>
+                  <div className="heading">
+                    {!hasRace && <strong>{`${field.amount} x `} </strong>}
+                    {!hasRace && (
+                      <strong
+                        className={"plus"}
+                        onClick={() => {
+                          increaseAmount(idx);
+                        }}
                       >
-                        Ten Miles
-                      </label>
-                      <input
-                        {...register(`tickets.${idx}.distance`, {
-                          required: true,
-                        })}
-                        type="radio"
-                        value={"8km"}
-                        id={`tickets.${idx}.distance-8km`}
-                      />
-                      <label
-                        className={"radio"}
-                        htmlFor={`tickets.${idx}.distance-8km`}
+                        <Plus />
+                      </strong>
+                    )}
+                    {!hasRace && (
+                      <strong
+                        className={"minus"}
+                        onClick={() => {
+                          decreaseAmount(idx);
+                        }}
                       >
-                        8 km
-                      </label>
+                        <Minus />
+                      </strong>
+                    )}
+                    <h3>{ticketType.title}</h3>
+                    <div>
+                      <strong>€{price}</strong>
+                      <strong
+                        onClick={() => removeTicket(idx)}
+                        className="delete"
+                      >
+                        <TrashCan />
+                      </strong>
                     </div>
-                  </div>
-                  <div>
-                    <label
-                      className={"required"}
-                      htmlFor={`tickets.${idx}.firstName`}
-                    >
-                      Voornaam
-                    </label>
                     <input
-                      type="text"
-                      id={`tickets.${idx}.firstName`}
-                      required={true}
-                      placeholder={"Voornaam"}
-                      {...register(`tickets.${idx}.firstName`, {
-                        required: true,
-                      })}
+                      type={"hidden"}
+                      {...register(`tickets.${idx}.type`, { required: true })}
+                    />
+                    <input
+                      type={"hidden"}
+                      {...register(`tickets.${idx}.amount`, { required: true })}
                     />
                   </div>
-                  <div>
-                    <label
-                      className={"required"}
-                      htmlFor={`tickets.${idx}.lastName`}
-                    >
-                      Familienaam
-                    </label>
-                    <input
-                      type="text"
-                      id={`tickets.${idx}.lastName`}
-                      placeholder={"Familienaam"}
-                      {...register(`tickets.${idx}.lastName`, {
-                        required: true,
-                      })}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor={`tickets.${idx}.birthDate`}
-                      className={"required"}
-                    >
-                      Geboortedatum
-                    </label>
-                    <input
-                      type="date"
-                      id={`tickets.${idx}.birthDate`}
-                      placeholder={"Geboortedatum"}
-                      min={"1950-01-01"}
-                      max={"2011-06-10"}
-                      {...register(`tickets.${idx}.birthDate`, {
-                        required: true,
-                        valueAsDate: true,
-                      })}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor={`tickets.${idx}.residence`}>
-                      Woonplaats
-                    </label>
-                    <input
-                      type="text"
-                      id={`tickets.${idx}.residence`}
-                      placeholder={"Woonplaats"}
-                      {...register(`tickets.${idx}.residence`, {
-                        required: false,
-                      })}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor={`tickets.${idx}.phone`}>Telefoon</label>
-                    <input
-                      type="text"
-                      id={`tickets.${idx}.phone`}
-                      placeholder={"Telefoon  (in geval van nood)"}
-                      {...register(`tickets.${idx}.phone`, { required: true })}
-                    />
-                  </div>
-                  <div>
-                    <label>Geslacht</label>
-                    <div className="radio-container">
-                      <input
-                        {...register(`tickets.${idx}.gender`, {
-                          required: true,
-                        })}
-                        type="radio"
-                        value={"m"}
-                        id={`tickets.${idx}.gender-m`}
-                        defaultChecked={true}
-                      />
-                      <label
-                        className={"radio"}
-                        htmlFor={`tickets.${idx}.gender-m`}
-                      >
-                        M
-                      </label>
-                      <input
-                        {...register(`tickets.${idx}.gender`, {
-                          required: true,
-                        })}
-                        type="radio"
-                        value={"v"}
-                        id={`tickets.${idx}.gender-v`}
-                      />
-                      <label
-                        className={"radio"}
-                        htmlFor={`tickets.${idx}.gender-v`}
-                      >
-                        V
-                      </label>
-                      <input
-                        {...register(`tickets.${idx}.gender`, {
-                          required: true,
-                        })}
-                        type="radio"
-                        value={"x"}
-                        id={`tickets.${idx}.gender-x`}
-                      />
-                      <label
-                        className={"radio"}
-                        htmlFor={`tickets.${idx}.gender-x`}
-                      >
-                        X
-                      </label>
+                  {hasRace && (
+                    <div className="body">
+                      <div>
+                        <label className={"required"}>Afstand</label>
+                        <div className="radio-container">
+                          <input
+                            {...register(`tickets.${idx}.distance`, {
+                              required: true,
+                            })}
+                            type="radio"
+                            value={"10miles"}
+                            id={`tickets.${idx}.distance-10miles`}
+                            defaultChecked={true}
+                          />
+                          <label
+                            className={"radio"}
+                            htmlFor={`tickets.${idx}.distance-10miles`}
+                          >
+                            Ten Miles
+                          </label>
+                          <input
+                            {...register(`tickets.${idx}.distance`, {
+                              required: true,
+                            })}
+                            type="radio"
+                            value={"8km"}
+                            id={`tickets.${idx}.distance-8km`}
+                          />
+                          <label
+                            className={"radio"}
+                            htmlFor={`tickets.${idx}.distance-8km`}
+                          >
+                            8 km
+                          </label>
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          className={"required"}
+                          htmlFor={`tickets.${idx}.firstName`}
+                        >
+                          Voornaam
+                        </label>
+                        <input
+                          type="text"
+                          id={`tickets.${idx}.firstName`}
+                          required={true}
+                          placeholder={"Voornaam"}
+                          {...register(`tickets.${idx}.firstName`, {
+                            required: true,
+                          })}
+                        />
+                      </div>
+                      <div>
+                        <label
+                          className={"required"}
+                          htmlFor={`tickets.${idx}.lastName`}
+                        >
+                          Familienaam
+                        </label>
+                        <input
+                          type="text"
+                          id={`tickets.${idx}.lastName`}
+                          placeholder={"Familienaam"}
+                          {...register(`tickets.${idx}.lastName`, {
+                            required: true,
+                          })}
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor={`tickets.${idx}.birthDate`}
+                          className={"required"}
+                        >
+                          Geboortedatum
+                        </label>
+                        <input
+                          type="date"
+                          id={`tickets.${idx}.birthDate`}
+                          placeholder={"Geboortedatum"}
+                          min={"1950-01-01"}
+                          max={"2011-06-10"}
+                          {...register(`tickets.${idx}.birthDate`, {
+                            required: true,
+                            valueAsDate: true,
+                          })}
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor={`tickets.${idx}.residence`}>
+                          Woonplaats
+                        </label>
+                        <input
+                          type="text"
+                          id={`tickets.${idx}.residence`}
+                          placeholder={"Woonplaats"}
+                          {...register(`tickets.${idx}.residence`, {
+                            required: false,
+                          })}
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor={`tickets.${idx}.phone`}>Telefoon</label>
+                        <input
+                          type="text"
+                          id={`tickets.${idx}.phone`}
+                          placeholder={"Telefoon  (in geval van nood)"}
+                          {...register(`tickets.${idx}.phone`, {
+                            required: false,
+                          })}
+                        />
+                      </div>
+                      <div>
+                        <label>Geslacht</label>
+                        <div className="radio-container">
+                          <input
+                            {...register(`tickets.${idx}.gender`, {
+                              required: true,
+                            })}
+                            type="radio"
+                            value={"m"}
+                            id={`tickets.${idx}.gender-m`}
+                            defaultChecked={true}
+                          />
+                          <label
+                            className={"radio"}
+                            htmlFor={`tickets.${idx}.gender-m`}
+                          >
+                            M
+                          </label>
+                          <input
+                            {...register(`tickets.${idx}.gender`, {
+                              required: true,
+                            })}
+                            type="radio"
+                            value={"v"}
+                            id={`tickets.${idx}.gender-v`}
+                          />
+                          <label
+                            className={"radio"}
+                            htmlFor={`tickets.${idx}.gender-v`}
+                          >
+                            V
+                          </label>
+                          <input
+                            {...register(`tickets.${idx}.gender`, {
+                              required: true,
+                            })}
+                            type="radio"
+                            value={"x"}
+                            id={`tickets.${idx}.gender-x`}
+                          />
+                          <label
+                            className={"radio"}
+                            htmlFor={`tickets.${idx}.gender-x`}
+                          >
+                            X
+                          </label>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
-              )}
-            </div>
-          );
-        })}
-        <h2>Totaal: €{totalPrice()}</h2>
-        <input
-          type="submit"
-          disabled={fields.length === 0}
-          title={
-            fields.length === 0
-              ? "Gelieve eerst tickets toe te voegen."
-              : "Ga verder om te betalen."
-          }
-          className={"btn primary"}
-          value={"Bestellen!"}
-        />
-      </form>
-    </>
-  );
+              );
+            })}
+            <h2>Totaal: €{totalPrice()}</h2>
+            <input
+              type="submit"
+              disabled={fields.length === 0}
+              title={
+                fields.length === 0
+                  ? "Gelieve eerst tickets toe te voegen."
+                  : "Ga verder om te betalen."
+              }
+              className={"btn primary"}
+              value={"Bestellen!"}
+            />
+          </form>
+        </>
+      );
+  }
 }
 
 export default TicketForm;
