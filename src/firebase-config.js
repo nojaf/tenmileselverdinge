@@ -1,6 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection } from "firebase/firestore/lite";
+import {
+  getFirestore,
+  connectFirestoreEmulator,
+  collection,
+} from "firebase/firestore/lite";
 import { getAuth, signInAnonymously } from "firebase/auth";
 
 // Your web app's Firebase configuration
@@ -21,4 +25,7 @@ await signInAnonymously(auth);
 
 // Initialize store
 export const store = getFirestore(app);
+if (window.location.hostname === "localhost") {
+  connectFirestoreEmulator(store, "localhost", 6006);
+}
 export const ordersCollections = collection(store, "orders");
