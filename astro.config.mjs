@@ -6,4 +6,11 @@ import react from "@astrojs/react";
 export default defineConfig({
   site: "https://tenmileselverdinge.be",
   integrations: [react()],
+  vite: {
+    server: {
+      watch: {
+        ignored: ["**/.idea/**"],
+      },
+    },
+  },
 });

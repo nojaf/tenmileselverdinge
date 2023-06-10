@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { addDoc } from "firebase/firestore/lite";
-import { ordersCollections } from "../firebase-config.js";
+import { ordersCollections, apiUrl } from "../firebase-config.js";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 const ticketTypes = {
   "race-schnitzel": {
@@ -140,13 +141,13 @@ function Minus() {
 }
 
 function TicketForm() {
-  const { register, handleSubmit, control } = useForm();
+  const { register, handleSubmit, control, setValue } = useForm();
   const [currentState, setCurrentState] = useState("form");
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: "tickets",
   });
-
+  const [token, setToken] = useState(null);
   const removeTicket = (removeIdx) => {
     remove(removeIdx);
   };
@@ -185,6 +186,15 @@ function TicketForm() {
       const orderId = document.id;
       console.log(orderId);
       console.log("Order created in FireBase, use ID to create payment");
+      const response = await fetch(`${apiUrl}?orderId=${orderId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token: token }),
+      });
+      const { paymentUrl } = await response.json();
+      window.location.href = paymentUrl;
     } catch (error) {
       console.error(error);
       setCurrentState("error");
@@ -451,6 +461,13 @@ function TicketForm() {
               );
             })}
             <h2>Totaal: €{totalPrice()}</h2>
+            <div id={"turnstile-wrapper"}>
+              <em>Even checken of je echt bent!</em>
+              <Turnstile
+                siteKey="0x4AAAAAAAF9j0iVC3TA7pbG"
+                onSuccess={setToken}
+              />
+            </div>
             <input
               type="submit"
               disabled={fields.length === 0}

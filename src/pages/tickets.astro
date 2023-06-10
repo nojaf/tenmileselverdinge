@@ -78,7 +78,7 @@ import TicketForm from "../components/TicketForm.jsx";
     background-color: var(--dark);
     color: var(--white);
     padding: calc(var(--unit) / 4) calc(var(--unit) / 2);
-    border-radius: 6px;
+    border-radius: var(--radius);
     display: inline-block;
     margin-left: var(--unit);
     line-height: 2;
@@ -90,7 +90,7 @@ import TicketForm from "../components/TicketForm.jsx";
     border: 1px solid var(--primary);
     margin: var(--unit) 0;
     padding: calc(var(--unit) / 3);
-    border-radius: 6px;
+    border-radius: var(--radius);
   }
 
   .ticket .heading {
@@ -255,5 +255,12 @@ import TicketForm from "../components/TicketForm.jsx";
 
   #error a {
     color: var(--dark);
+  }
+
+  #turnstile-wrapper {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 </style>

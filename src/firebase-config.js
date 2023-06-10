@@ -29,3 +29,8 @@ if (window.location.hostname === "localhost") {
   connectFirestoreEmulator(store, "localhost", 6006);
 }
 export const ordersCollections = collection(store, "orders");
+
+export const apiUrl =
+  window.location.hostname === "localhost"
+    ? "http://127.0.0.1:5001/ten-miles-elverdinge-2023/us-central1/createPaymentLink"
+    : "";
