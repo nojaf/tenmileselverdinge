@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-iconify";
 import Layout from "../layouts/Layout.astro";
 import TicketForm from "../components/TicketForm.jsx";
 ---
@@ -10,14 +11,50 @@ import TicketForm from "../components/TicketForm.jsx";
       Via onderstaand formulier kan je zowel tickets bestellen voor de
       loopwedstrijd als de maaltijd.
     </p>
+    <p id="alert-extra-info-tickets">
+      <Icon class="description-icon" pack="grommet-icons" name="alert" /> Voor de
+      tickets voor de loopwedstrijd hebben we <em
+        >extra informatie per loper nodig voor de verzekering</em
+      >.
+    </p>
     <p>
       Tickets voor de maaldtijd kunnen ook fysiek bij de leden van de loopclub
       gekocht worden.
     </p>
+    <div class="loading" id="dom-loader">
+      <div></div>
+    </div>
     <TicketForm client:only />
   </main>
 </Layout>
 <style is:global>
+  .description-icon {
+    width: calc(var(--unit) * 1.5);
+    transform: translateY(5px);
+    color: var(--warning);
+  }
+
+  #alert-extra-info-tickets {
+    background-color: var(--grey);
+    padding: var(--unit);
+    border-radius: var(--radius);
+    font-family: var(--heading-font);
+    line-height: 1.5;
+  }
+
+  header {
+    display: flex;
+  }
+
+  header #add-ticket,
+  header summary {
+    flex: 1;
+  }
+
+  summary {
+    display: block;
+  }
+
   #add-ticket {
     position: relative;
   }
@@ -50,7 +87,6 @@ import TicketForm from "../components/TicketForm.jsx";
 
   #add-ticket .items a {
     display: flex;
-    text-align: justify;
     text-decoration: none;
     border: 1px solid var(--primary-border);
     border-top: none;
@@ -74,6 +110,30 @@ import TicketForm from "../components/TicketForm.jsx";
     color: var(--white);
   }
 
+  #add-ticket .items a:last-child {
+    margin-bottom: var(--unit-3);
+  }
+
+  summary {
+    border-bottom: 1px solid var(--dark-border);
+    border-top: 1px solid var(--dark-border);
+    padding: calc(var(--unit) / 2);
+    margin: var(--unit) 0;
+  }
+
+  summary h4 {
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  summary ul {
+    list-style-type: square;
+    margin: calc(var(--unit) / 2) 0;
+    padding-left: var(--unit);
+  }
+
   strong {
     background-color: var(--dark);
     color: var(--white);
@@ -91,6 +151,7 @@ import TicketForm from "../components/TicketForm.jsx";
     margin: var(--unit) 0;
     padding: calc(var(--unit) / 3);
     border-radius: var(--radius);
+    background-color: var(--light-primary);
   }
 
   .ticket .heading {
@@ -174,7 +235,7 @@ import TicketForm from "../components/TicketForm.jsx";
   }
 
   .ticket .body label {
-    min-width: 150px;
+    flex: 1;
   }
 
   .ticket .body label.required:after {
@@ -262,5 +323,38 @@ import TicketForm from "../components/TicketForm.jsx";
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  #turnstile-wrapper em {
+    margin-right: calc(var(--unit) / 2);
+  }
+
+  @media screen and (min-width: 960px) {
+    #ticket-form {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+
+    #ticket-form form {
+      flex: 1;
+    }
+
+    #ticket-form summary {
+      margin-top: 0;
+      margin-left: var(--unit);
+      margin-bottom: 0;
+      padding-left: var(--unit);
+      padding-bottom: 0;
+      padding-top: 0;
+      border: none;
+      border-left: 1px solid var(--dark-border);
+      align-self: flex-start;
+      position: sticky;
+      top: var(--unit);
+    }
+
+    #ticket-form summary ul {
+      margin: 0;
+    }
   }
 </style>

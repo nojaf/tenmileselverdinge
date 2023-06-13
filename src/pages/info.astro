@@ -53,6 +53,11 @@ import Layout from "../layouts/Layout.astro";
       Tot in de vroege uurtjes genieten we van heerlijke halve liters gerstenat,
       Duitse hits en veel ambiance!
     </p>
+    <p>
+      <a href="/tickets" id="cta">
+        <button class="primary"> Bestel tickets!</button>
+      </a>
+    </p>
   </main>
 </Layout>
 <style>
@@ -143,5 +148,17 @@ import Layout from "../layouts/Layout.astro";
       grid-column-start: 1;
       grid-column-end: 2;
     }
+  }
+
+  #cta {
+    display: block;
+    text-align: center;
+  }
+
+  #cta button {
+    text-transform: uppercase;
+    font-size: var(--unit-2);
+    padding: var(--unit);
+    margin-top: var(--unit);
   }
 </style>

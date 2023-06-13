@@ -43,12 +43,16 @@ const currentPath = pathname.slice(1); // remove the first "/"
     --primary: #b7f4d8;
     --primary-hover: #dbf6ec;
     --primary-border: #75eab4;
+    --light-primary: rgba(183, 244, 216, 0.05);
     --secondary: #aff4fa;
     --secondary-hover: #f7feff;
     --secondary-border: #67eaf6;
     --danger: #f92d51;
     --danger-hover: #fb778f;
     --danger-border: #d3062a;
+    --warning: #f7ca18;
+    --warning-hover: #fadb62;
+    --warning-border: #bc9707;
     --success: #c8f7c5;
     --success-hover: #e0ffdb;
     --success-border: #88ee82;
@@ -179,8 +183,8 @@ const currentPath = pathname.slice(1); // remove the first "/"
 
   main {
     flex: 1;
-    margin: 0 var(--unit-2);
-    padding: var(--unit-2) 0;
+    margin: 0 var(--unit);
+    padding: var(--unit) 0;
     max-width: var(--container);
   }
 

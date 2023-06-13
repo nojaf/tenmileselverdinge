@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { addDoc } from "firebase/firestore/lite";
+import { useMediaQuery } from "usehooks-ts";
 import { ordersCollections, apiUrl } from "../firebase-config.js";
 import { Turnstile } from "@marsidev/react-turnstile";
 
@@ -8,30 +9,48 @@ const ticketTypes = {
   "race-schnitzel": {
     price: 26,
     title: "Loopwedstrijd + Schnitzel (Volwassene)",
+    summary: "Loopwedstrijd + Schnitzel",
   },
   "race-tartiflette": {
     price: 26,
     title: "Loopwedstrijd + Tartiflette (Volwassene)",
+    summary: "Loopwedstrijd + Tartiflette",
   },
   race: {
     price: 10,
     title: "Loopwedstrijd",
+    summary: "Loopwedstrijd",
   },
   schnitzel: {
     price: 18,
     title: "Schnitzel (Volwassene)",
+    summary: "Schnitzel Volwassene",
   },
   tartiflette: {
     price: 18,
     title: "Tartiflette (Volwassene)",
+    summary: "Tartiflette Volwassene",
   },
-  "child-meal": {
+  "child-schnitzel": {
     price: 10,
-    title: "Kinderkaart maaltijd (tot 12 jaar)",
+    title: "Schnitzel (Kind t.e.m. 12 jaar)",
+    summary: "Schnitzel Kind",
+  },
+  "child-tartiflette": {
+    price: 10,
+    title: "Tartiflette (Kind t.e.m. 12 jaar)",
+    summary: "Tartiflette Kind",
   },
 };
 
 function AddTicket({ onSelect }) {
+  useEffect(() => {
+    const loader = document.querySelector("#dom-loader");
+    if (loader) {
+      loader.remove();
+    }
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false);
   const onItemSelect = (item) => (ev) => {
     ev.preventDefault();
@@ -44,7 +63,8 @@ function AddTicket({ onSelect }) {
       <button
         className={"primary"}
         title={"Klik om je soort ticket te kiezen!"}
-        onClick={() => {
+        onClick={(ev) => {
+          ev.preventDefault();
           setIsOpen(!isOpen);
         }}
       >
@@ -140,14 +160,49 @@ function Minus() {
   );
 }
 
+function CartSummary({ tickets }) {
+  const summaryData = tickets.reduce((acc, ticket) => {
+    if (acc[ticket.type]) {
+      acc[ticket.type] += ticket.amount;
+    } else {
+      acc[ticket.type] = ticket.amount;
+    }
+
+    return acc;
+  }, {});
+
+  const summaryItems = Object.keys(summaryData).map((ticketType) => {
+    return {
+      type: ticketType,
+      amount: summaryData[ticketType],
+      summary: ticketTypes[ticketType].summary,
+    };
+  });
+
+  return (
+    <summary>
+      <h4>Winkelmandje:</h4>
+      <ul>
+        {summaryItems.map((si) => (
+          <li key={si.type}>
+            {si.summary} x {si.amount} (
+            <em>€{si.amount * ticketTypes[si.type].price}</em>)
+          </li>
+        ))}
+      </ul>
+    </summary>
+  );
+}
+
 function TicketForm() {
-  const { register, handleSubmit, control, setValue } = useForm();
+  const { register, handleSubmit, control, setValue, getValues } = useForm();
   const [currentState, setCurrentState] = useState("form");
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: "tickets",
   });
   const [token, setToken] = useState(null);
+  const isTablet = useMediaQuery("screen and (min-width: 960px)");
   const removeTicket = (removeIdx) => {
     remove(removeIdx);
   };
@@ -224,29 +279,19 @@ function TicketForm() {
       );
     default:
       return (
-        <>
-          <AddTicket
-            onSelect={(newTicket) => {
-              if (newTicket.startsWith("race")) {
-                append({ type: newTicket, amount: 1 });
-              } else {
-                const existingTicket = fields.find(
-                  (ticket) => ticket.type === newTicket
-                );
-                if (existingTicket) {
-                  update(
-                    fields.findIndex((ticket) => ticket.type === newTicket),
-                    { ...existingTicket, amount: existingTicket.amount + 1 }
-                  );
-                } else {
-                  append({ type: newTicket, amount: 1 });
-                }
-              }
-            }}
-          />
+        <div id={"ticket-form"}>
+          {isTablet && fields.length > 0 && <CartSummary tickets={fields} />}
           <form onSubmit={handleSubmit(onSubmit)}>
+            <div id={"turnstile-wrapper"}>
+              <em>Even checken of je echt bent!</em>
+              <Turnstile
+                siteKey="0x4AAAAAAAF9j0iVC3TA7pbG"
+                onSuccess={setToken}
+              />
+            </div>
             {fields.map((field, idx) => {
               const ticketType = ticketTypes[field.type];
+              const firstName = getValues([`tickets.${idx}.firstName`], null);
               const hasRace = field.type.startsWith("race");
               const price = hasRace
                 ? ticketType.price
@@ -276,7 +321,15 @@ function TicketForm() {
                         <Minus />
                       </strong>
                     )}
-                    <h3>{ticketType.title}</h3>
+                    <h3>
+                      {ticketType.title}{" "}
+                      {hasRace && firstName.length === 1 && firstName[0] && (
+                        <span>
+                          <br />
+                          voor {firstName[0]}
+                        </span>
+                      )}
+                    </h3>
                     <div>
                       <strong>€{price}</strong>
                       <strong
@@ -460,14 +513,27 @@ function TicketForm() {
                 </div>
               );
             })}
+            <AddTicket
+              onSelect={(newTicket) => {
+                if (newTicket.startsWith("race")) {
+                  append({ type: newTicket, amount: 1 });
+                } else {
+                  const existingTicket = fields.find(
+                    (ticket) => ticket.type === newTicket
+                  );
+                  if (existingTicket) {
+                    update(
+                      fields.findIndex((ticket) => ticket.type === newTicket),
+                      { ...existingTicket, amount: existingTicket.amount + 1 }
+                    );
+                  } else {
+                    append({ type: newTicket, amount: 1 });
+                  }
+                }
+              }}
+            />
+            {!isTablet && fields.length > 0 && <CartSummary tickets={fields} />}
             <h2>Totaal: €{totalPrice()}</h2>
-            <div id={"turnstile-wrapper"}>
-              <em>Even checken of je echt bent!</em>
-              <Turnstile
-                siteKey="0x4AAAAAAAF9j0iVC3TA7pbG"
-                onSuccess={setToken}
-              />
-            </div>
             <input
               type="submit"
               disabled={fields.length === 0}
@@ -480,7 +546,7 @@ function TicketForm() {
               value={"Bestellen!"}
             />
           </form>
-        </>
+        </div>
       );
   }
 }
