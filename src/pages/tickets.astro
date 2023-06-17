@@ -11,27 +11,79 @@ import TicketForm from "../components/TicketForm.jsx";
       Via onderstaand formulier kan je zowel tickets bestellen voor de
       loopwedstrijd als de maaltijd.
     </p>
+    <p>Voor de maaltijd is er keuze tussen:</p>
+    <ul id="food">
+      <li>
+        <img alt="Schnitzel" src="/Schnitzel-placeholder.png" /><strong
+          >Schnitzel</strong>
+      </li>
+      <li>
+        <img alt="Tartiflette" src="/Tartiflette-placeholder.png" /><strong
+          >Tartiflette</strong>
+      </li>
+    </ul>
     <p id="alert-extra-info-tickets">
-      <Icon class="description-icon" pack="grommet-icons" name="alert" /> Voor de
-      tickets voor de loopwedstrijd hebben we <em
-        >extra informatie per loper nodig voor de verzekering</em
-      >.
+      <Icon class="description-icon" pack="grommet-icons" name="alert" /> Per loper
+      hebben we <em>extra informatie per loper nodig voor de verzekering</em>.
     </p>
     <p>
-      Tickets voor de maaldtijd kunnen ook fysiek bij de leden van de loopclub
-      gekocht worden.
+      Het is ook mogelijk om enkel deel te nemen aan de loopwedstrijd. Geniet
+      van een kleine korting wanneer je zowel komt lopen als eten!
     </p>
     <div class="loading" id="dom-loader">
       <div></div>
     </div>
-    <TicketForm client:only />
+    <TicketForm client:only="react" />
   </main>
 </Layout>
 <style is:global>
+  #food {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #food li {
+    flex: 1;
+    margin-right: calc(var(--unit) / 3);
+  }
+
+  #food li strong {
+    text-align: center;
+    display: block;
+  }
+
+  #food li:last-child {
+    margin-right: 0;
+    margin-left: calc(var(--unit) / 3);
+  }
+
+  #food li img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  @media screen and (min-width: 960px) {
+    #food {
+      justify-content: space-around;
+    }
+    #food li {
+      flex: initial;
+      margin: 0;
+    }
+    #food li img {
+      max-width: 320px;
+    }
+  }
+
   .description-icon {
     width: calc(var(--unit) * 1.5);
     transform: translateY(5px);
     color: var(--warning);
+    margin-right: calc(var(--unit) / 4);
   }
 
   #alert-extra-info-tickets {
@@ -40,6 +92,10 @@ import TicketForm from "../components/TicketForm.jsx";
     border-radius: var(--radius);
     font-family: var(--heading-font);
     line-height: 1.5;
+  }
+
+  #ticket-form {
+    margin-top: calc(2 * var(--unit-4));
   }
 
   header {
@@ -134,7 +190,7 @@ import TicketForm from "../components/TicketForm.jsx";
     padding-left: var(--unit);
   }
 
-  strong {
+  #ticket-form strong {
     background-color: var(--dark);
     color: var(--white);
     padding: calc(var(--unit) / 4) calc(var(--unit) / 2);
@@ -144,6 +200,20 @@ import TicketForm from "../components/TicketForm.jsx";
     line-height: 2;
     white-space: nowrap;
     user-select: none;
+  }
+
+  #ticket-form strong.toggle {
+    background-color: var(--grey);
+    color: var(--dark);
+    cursor: pointer;
+  }
+
+  #ticket-form strong.toggle:hover {
+    background-color: var(--grey-hover);
+  }
+
+  #ticket-form strong.toggle svg {
+    transform: translateY(3px);
   }
 
   .ticket {
@@ -166,26 +236,27 @@ import TicketForm from "../components/TicketForm.jsx";
     margin: 0 calc(var(--unit) / 2);
     font-size: var(--unit);
     text-transform: uppercase;
+    flex: 1;
   }
 
   .ticket .heading div {
     display: flex;
   }
 
-  .ticket .heading strong.delete {
+  #ticket-form .ticket .heading strong.delete {
     background-color: var(--danger);
     cursor: pointer;
     display: flex;
     align-items: center;
   }
 
-  .ticket .heading strong.delete:hover,
-  .ticket .heading strong.delete:focus {
+  #ticket-form .ticket .heading strong.delete:hover,
+  #ticket-form .ticket .heading strong.delete:focus {
     background-color: var(--danger-hover);
   }
 
-  .ticket .heading strong.plus,
-  .ticket .heading strong.minus {
+  #ticket-form .ticket .heading strong.plus,
+  #ticket-form .ticket .heading strong.minus {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -193,22 +264,24 @@ import TicketForm from "../components/TicketForm.jsx";
     padding: calc(var(--unit) / 2);
   }
 
-  .ticket .heading strong.plus {
+  #ticket-form .ticket .heading strong.plus {
     background-color: var(--success);
   }
 
-  .ticket .heading strong.plus:hover,
-  .ticket .heading strong.plus:focus {
+  #ticket-form .ticket .heading strong.plus:hover,
+  #ticket-form .ticket .heading strong.plus:focus {
     background-color: var(--success-hover);
+    color: var(--dark);
   }
 
-  .ticket .heading strong.minus {
+  #ticket-form .ticket .heading strong.minus {
     background-color: var(--danger);
   }
 
-  .ticket .heading strong.minus:hover,
-  .ticket .heading strong.minus:focus {
+  #ticket-form .ticket .heading strong.minus:hover,
+  #ticket-form .ticket .heading strong.minus:focus {
     background-color: var(--danger-hover);
+    color: var(--dark);
   }
 
   .ticket .heading strong.delete svg {
@@ -254,11 +327,13 @@ import TicketForm from "../components/TicketForm.jsx";
     border: 2px solid var(--grey);
     font-size: var(--unit);
     padding: calc(var(--unit) / 2) calc(var(--unit) / 3);
+    box-sizing: border-box;
   }
 
   .ticket .body .radio-container {
     flex: 1;
     display: flex;
+    border: 1px solid var(--primary);
   }
 
   .ticket .body .radio-container label {
@@ -273,7 +348,7 @@ import TicketForm from "../components/TicketForm.jsx";
 
   .ticket .body input[type="radio"] + label {
     box-sizing: border-box;
-    border: 2px solid var(--primary);
+    border: 1px solid var(--primary);
     display: inline-block;
     font-family: var(--heading-font);
     padding: calc(var(--unit) / 2) var(--unit);

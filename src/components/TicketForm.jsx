@@ -8,12 +8,12 @@ import { Turnstile } from "@marsidev/react-turnstile";
 const ticketTypes = {
   "race-schnitzel": {
     price: 26,
-    title: "Loopwedstrijd + Schnitzel (Volwassene)",
+    title: "Loopwedstrijd + Maaltijd Schnitzel",
     summary: "Loopwedstrijd + Schnitzel",
   },
   "race-tartiflette": {
     price: 26,
-    title: "Loopwedstrijd + Tartiflette (Volwassene)",
+    title: "Loopwedstrijd + Maaltijd Tartiflette",
     summary: "Loopwedstrijd + Tartiflette",
   },
   race: {
@@ -23,22 +23,22 @@ const ticketTypes = {
   },
   schnitzel: {
     price: 18,
-    title: "Schnitzel (Volwassene)",
+    title: "Maaltijd Schnitzel (Volwassene)",
     summary: "Schnitzel Volwassene",
   },
   tartiflette: {
     price: 18,
-    title: "Tartiflette (Volwassene)",
+    title: "Maaltijd Tartiflette (Volwassene)",
     summary: "Tartiflette Volwassene",
   },
   "child-schnitzel": {
     price: 10,
-    title: "Schnitzel (Kind t.e.m. 12 jaar)",
+    title: "Maaltijd Schnitzel (Kind t.e.m. 12 jaar)",
     summary: "Schnitzel Kind",
   },
   "child-tartiflette": {
     price: 10,
-    title: "Tartiflette (Kind t.e.m. 12 jaar)",
+    title: "Maaltijd Tartiflette (Kind t.e.m. 12 jaar)",
     summary: "Tartiflette Kind",
   },
 };
@@ -160,6 +160,38 @@ function Minus() {
   );
 }
 
+function Collapse() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+    >
+      <path
+        fill="currentColor"
+        d="m2.5 15.25l7.5-7.5l7.5 7.5l1.5-1.5l-9-9l-9 9z"
+      />
+    </svg>
+  );
+}
+
+function Expand() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+    >
+      <path
+        fill="currentColor"
+        d="m17.5 4.75l-7.5 7.5l-7.5-7.5L1 6.25l9 9l9-9z"
+      />
+    </svg>
+  );
+}
+
 function CartSummary({ tickets }) {
   const summaryData = tickets.reduce((acc, ticket) => {
     if (acc[ticket.type]) {
@@ -203,8 +235,17 @@ function TicketForm() {
   });
   const [token, setToken] = useState(null);
   const isTablet = useMediaQuery("screen and (min-width: 960px)");
+  const [collapsedTickets, setCollapsedTickets] = useState([]);
   const removeTicket = (removeIdx) => {
     remove(removeIdx);
+  };
+
+  const toggleRaceTicket = (idx) => {
+    if (collapsedTickets.includes(idx)) {
+      setCollapsedTickets(collapsedTickets.filter((t) => t !== idx));
+    } else {
+      setCollapsedTickets([...collapsedTickets, idx]);
+    }
   };
 
   const increaseAmount = (idx) => {
@@ -283,7 +324,7 @@ function TicketForm() {
           {isTablet && fields.length > 0 && <CartSummary tickets={fields} />}
           <form onSubmit={handleSubmit(onSubmit)}>
             <div id={"turnstile-wrapper"}>
-              <em>Even checken of je echt bent!</em>
+              <em>Even checken of je een echte persoon bent!</em>
               <Turnstile
                 siteKey="0x4AAAAAAAF9j0iVC3TA7pbG"
                 onSuccess={setToken}
@@ -331,6 +372,18 @@ function TicketForm() {
                       )}
                     </h3>
                     <div>
+                      {hasRace && (
+                        <strong
+                          className={"toggle"}
+                          onClick={() => toggleRaceTicket(idx)}
+                        >
+                          {collapsedTickets.includes(idx) ? (
+                            <Expand />
+                          ) : (
+                            <Collapse />
+                          )}
+                        </strong>
+                      )}
                       <strong>€{price}</strong>
                       <strong
                         onClick={() => removeTicket(idx)}
@@ -348,7 +401,7 @@ function TicketForm() {
                       {...register(`tickets.${idx}.amount`, { required: true })}
                     />
                   </div>
-                  {hasRace && (
+                  {hasRace && !collapsedTickets.includes(idx) && (
                     <div className="body">
                       <div>
                         <label className={"required"}>Afstand</label>
@@ -366,7 +419,7 @@ function TicketForm() {
                             className={"radio"}
                             htmlFor={`tickets.${idx}.distance-10miles`}
                           >
-                            Ten Miles
+                            16 km
                           </label>
                           <input
                             {...register(`tickets.${idx}.distance`, {
@@ -515,6 +568,17 @@ function TicketForm() {
             })}
             <AddTicket
               onSelect={(newTicket) => {
+                // Collapse last run ticket if applicable
+                const lastTicketIdx = fields.length - 1;
+                if (
+                  lastTicketIdx !== -1 &&
+                  fields[lastTicketIdx].type.startsWith("race") &&
+                  !collapsedTickets.includes(lastTicketIdx)
+                ) {
+                  toggleRaceTicket(lastTicketIdx);
+                }
+
+                // Update form array
                 if (newTicket.startsWith("race")) {
                   append({ type: newTicket, amount: 1 });
                 } else {
