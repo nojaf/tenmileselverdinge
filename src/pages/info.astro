@@ -11,22 +11,22 @@ import Layout from "../layouts/Layout.astro";
       <time>16:00</time>
       <div class="info">
         <h3>Start loopwedstrijd</h3>
-        <img src="/Race-placeholder.png" alt="Loopwedstrijd" />
+        <img src="/Race.png" alt="Loopwedstrijd" />
         <p>Start loopwedstrijd 16km en 8km.</p>
       </div>
       <time>19:00</time>
       <div class="info">
         <h3>Start maaltijd</h3>
         <div id="food">
-          <img src="/Schnitzel-placeholder.png" alt="Schnitzel" />
-          <img src="/Tartiflette-placeholder.png" alt="Tartiflette" />
+          <img src="/Schnitzel.jpg" alt="Schnitzel" />
+          <img src="/Tartiflette.jpg" alt="Tartiflette" />
         </div>
         <p>Heerlijke Schnitzel of Tartiflette.</p>
       </div>
       <time>22:00</time>
       <div class="info">
         <h3>Start Oktoberfest</h3>
-        <img src="/Dirndl-placeholder.png" alt="Oktoberfest in OC Den Elver" />
+        <img src="/Oktoberfest.jpg" alt="Oktoberfest in OC Den Elver" />
         <p>Ein Prosit!</p>
       </div>
     </div>
@@ -175,6 +175,12 @@ import Layout from "../layouts/Layout.astro";
       grid-column-end: 2;
     }
   }
+
+  @media screen and (min-width: 1200px) {
+    #schedule {
+      margin: var(--unit-3) auto;
+      max-width: 1200px;
+    }
 
   #cta {
     display: block;
