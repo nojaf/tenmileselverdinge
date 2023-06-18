@@ -600,7 +600,7 @@ function TicketForm() {
             <h2>Totaal: €{totalPrice()}</h2>
             <input
               type="submit"
-              disabled={fields.length === 0}
+              disabled={fields.length === 0 || !token}
               title={
                 fields.length === 0
                   ? "Gelieve eerst tickets toe te voegen."
