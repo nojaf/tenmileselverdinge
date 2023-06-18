@@ -10,7 +10,8 @@ import TicketForm from "../components/TicketForm.jsx";
     <p>
       Via onderstaand formulier kan je <strong>zowel tickets</strong> bestellen voor
       de
-      <strong>loopwedstrijd</strong> als de <strong>maaltijd</strong>.
+      <strong>loopwedstrijd</strong> als de <strong>maaltijd</strong>.<br />
+      Druk op de <em>groene knop</em> om je tickets te kiezen.
     </p>
     <p>
       Het is ook mogelijk om <em>enkel</em> deel te nemen aan de loopwedstrijd. Geniet
@@ -82,21 +83,22 @@ import TicketForm from "../components/TicketForm.jsx";
 
   .description-icon {
     width: calc(var(--unit) * 1.5);
-    transform: translateY(5px);
+    transform: translateY(6px);
     color: var(--warning);
     margin-right: calc(var(--unit) / 4);
   }
 
   #alert-extra-info-tickets {
     background-color: var(--grey);
-    padding: var(--unit);
+    padding: calc(var(--unit) / 2);
     border-radius: var(--radius);
     font-family: var(--heading-font);
-    line-height: 1.5;
+    line-height: calc(var(--unit) * 2);
+    font-size: var(--unit);
   }
 
   #ticket-form {
-    margin-top: calc(2 * var(--unit-4));
+    margin-top: var(--unit-4);
   }
 
   header {
@@ -122,9 +124,15 @@ import TicketForm from "../components/TicketForm.jsx";
     font-weight: 600;
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 100%;
+    justify-content: space-around;
+    width: 100%;  
     font-size: calc(var(--unit-4) / 3);
+  }
+
+  @media screen and (min-width: 960px) {
+    #add-ticket button {
+      justify-content: center;
+    }
   }
 
   #add-ticket button svg {
@@ -149,7 +157,7 @@ import TicketForm from "../components/TicketForm.jsx";
     border-top: none;
     padding: calc(var(--unit) / 2);
     background-color: var(--primary);
-    color: var(--dark);
+    color: var(--white);
     font-family: var(--heading-font);
     text-transform: uppercase;
     font-weight: 600;
@@ -160,11 +168,11 @@ import TicketForm from "../components/TicketForm.jsx";
 
   #add-ticket .items a:hover {
     background-color: var(--primary-hover);
+    color: var(--dark);
   }
 
   #add-ticket .items a:focus {
     background-color: var(--dark);
-    color: var(--white);
   }
 
   #add-ticket .items a:last-child {
@@ -308,7 +316,7 @@ import TicketForm from "../components/TicketForm.jsx";
     border-bottom: none;
   }
 
-  .ticket .body label {
+  .ticket .body > div > label {
     flex: 1;
   }
 
@@ -322,9 +330,9 @@ import TicketForm from "../components/TicketForm.jsx";
     margin-left: 2px;
   }
 
-  .ticket .body input {
+  .ticket .body > div > input {
     flex: 1;
-    border-radius: 4px;
+    border-radius: var(--radius);
     border: 2px solid var(--grey);
     font-size: var(--unit);
     padding: calc(var(--unit) / 2) calc(var(--unit) / 3);
@@ -334,12 +342,12 @@ import TicketForm from "../components/TicketForm.jsx";
   .ticket .body .radio-container {
     flex: 1;
     display: flex;
-    border: 1px solid var(--primary);
+    box-sizing: border-box;
   }
 
   .ticket .body .radio-container label {
     flex: 1;
-    min-width: auto;
+    background-color: var(--white);
   }
 
   .ticket .body input[type="radio"] {
@@ -349,7 +357,9 @@ import TicketForm from "../components/TicketForm.jsx";
 
   .ticket .body input[type="radio"] + label {
     box-sizing: border-box;
-    border: 1px solid var(--primary);
+    border-right: 2px solid var(--grey);
+    border-top: 2px solid var(--grey);
+    border-bottom: 2px solid var(--grey);
     display: inline-block;
     font-family: var(--heading-font);
     padding: calc(var(--unit) / 2) var(--unit);
@@ -359,12 +369,28 @@ import TicketForm from "../components/TicketForm.jsx";
     cursor: pointer;
   }
 
+  .ticket .body input[type="radio"] + label:first-of-type {
+    border-left: 2px solid var(--grey);
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+  }
+
+  .ticket .body input[type="radio"] + label:last-of-type {
+    border-top-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+  }
+
   .ticket .body input[type="radio"] + label:hover {
-    background-color: var(--primary-hover);
+    background-color: var(--grey-hover);
+    color: var(--primary-border);
   }
 
   .ticket .body input[type="radio"]:checked + label {
-    background-color: var(--primary);
+    box-shadow: var(--white) 0 0 0 0, var(--primary) 0 0 0 2px, transparent 0 0 0 0;
+    border-right: none;
+    color: var(--primary-border);
+    z-index: 10;
+    font-family: var(--heading-font);
   }
 
   input[type="submit"] {
