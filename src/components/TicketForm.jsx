@@ -227,7 +227,7 @@ function CartSummary({ tickets }) {
 }
 
 function TicketForm() {
-  const { register, handleSubmit, control, setValue, getValues } = useForm();
+  const { formState, register, handleSubmit, control, getValues } = useForm();
   const [currentState, setCurrentState] = useState("form");
   const { fields, append, remove, update } = useFieldArray({
     control,
@@ -275,13 +275,22 @@ function TicketForm() {
 
   const onSubmit = async (data) => {
     try {
+      if (!token) {
+        return;
+      }
+
+      if (fields.length === 0) {
+        return;
+      }
+
       console.log(data);
       console.table(data.tickets);
       setCurrentState("loading");
-      const document = await addDoc(ordersCollections, data);
+      const document = await addDoc(ordersCollections, {
+        ...data,
+        created: new Date(),
+      });
       const orderId = document.id;
-      console.log(orderId);
-      console.log("Order created in FireBase, use ID to create payment");
       const response = await fetch(`${apiUrl}?orderId=${orderId}`, {
         method: "POST",
         headers: {
@@ -297,11 +306,13 @@ function TicketForm() {
     }
   };
 
+  const showErrors = formState.isSubmitted && (!token || fields.length === 0);
+
   switch (currentState) {
     case "error":
       return (
         <div id="error">
-          <h2>Yikes, er ging iets mis</h2>
+          <h2>Ow zekers, er ging iets mis</h2>
           <p>
             Er ging iets mis bij het verwerken van je bestelling. Probeer het
             later opnieuw aub. <br />
@@ -328,6 +339,45 @@ function TicketForm() {
               <Turnstile
                 siteKey="0x4AAAAAAAF9j0iVC3TA7pbG"
                 onSuccess={setToken}
+              />
+            </div>
+            <div className="contact">
+              <h4>Bestelling op naam van:</h4>
+              <label htmlFor={`contact.firstName`} className={"required"}>
+                Voornaam
+              </label>
+              <input
+                type="text"
+                id={`contact.firstName`}
+                required={true}
+                placeholder={"Voornaam"}
+                {...register(`contact.firstName`, {
+                  required: true,
+                })}
+              />
+              <label htmlFor={`contact.firstName`} className={"required"}>
+                Familienaam
+              </label>
+              <input
+                type="text"
+                id={`contact.lastName`}
+                required={true}
+                placeholder={"Familienaam"}
+                {...register(`contact.lastName`, {
+                  required: true,
+                })}
+              />
+              <label htmlFor={`contact.firstName`} className={"required"}>
+                Email
+              </label>
+              <input
+                type="email"
+                id={`contact.email`}
+                required={true}
+                placeholder={"Email"}
+                {...register(`contact.email`, {
+                  required: true,
+                })}
               />
             </div>
             {fields.map((field, idx) => {
@@ -598,9 +648,18 @@ function TicketForm() {
             />
             {!isTablet && fields.length > 0 && <CartSummary tickets={fields} />}
             <h2>Totaal: €{totalPrice()}</h2>
+            {showErrors && (
+              <div id={"form-errors"}>
+                {!token && (
+                  <p>Gelieve te bevestigen dat je een echte persoon bent!</p>
+                )}
+                {fields.length === 0 && (
+                  <p>Gelieve tickets toe te voegen via de groene knop!</p>
+                )}
+              </div>
+            )}
             <input
               type="submit"
-              disabled={fields.length === 0 || !token}
               title={
                 fields.length === 0
                   ? "Gelieve eerst tickets toe te voegen."
