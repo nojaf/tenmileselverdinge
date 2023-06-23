@@ -192,6 +192,17 @@ function Expand() {
   );
 }
 
+function totalPrice(fields) {
+  if (fields.length === 0) {
+    return 0;
+  } else {
+    return fields.reduce((acc, ticket) => {
+      const price = ticketTypes[ticket.type].price * ticket.amount;
+      return acc + price;
+    }, 0);
+  }
+}
+
 function CartSummary({ tickets }) {
   const summaryData = tickets.reduce((acc, ticket) => {
     if (acc[ticket.type]) {
@@ -211,6 +222,8 @@ function CartSummary({ tickets }) {
     };
   });
 
+  const isTablet = useMediaQuery("screen and (min-width: 960px)");
+
   return (
     <summary>
       <h4>Winkelmandje:</h4>
@@ -222,6 +235,7 @@ function CartSummary({ tickets }) {
           </li>
         ))}
       </ul>
+      {isTablet && <h2>Totaal: €{totalPrice(tickets)}</h2>}
     </summary>
   );
 }
@@ -260,16 +274,6 @@ function TicketForm() {
       removeTicket(idx);
     } else {
       update(idx, { ...field, amount: field.amount - 1 });
-    }
-  };
-  const totalPrice = () => {
-    if (fields.length === 0) {
-      return 0;
-    } else {
-      return fields.reduce((acc, ticket) => {
-        const price = ticketTypes[ticket.type].price * ticket.amount;
-        return acc + price;
-      }, 0);
     }
   };
 
@@ -351,6 +355,7 @@ function TicketForm() {
                 id={`contact.firstName`}
                 required={true}
                 placeholder={"Voornaam"}
+                autoComplete="given-name"
                 {...register(`contact.firstName`, {
                   required: true,
                 })}
@@ -362,6 +367,7 @@ function TicketForm() {
                 type="text"
                 id={`contact.lastName`}
                 required={true}
+                autoComplete={"family-name"}
                 placeholder={"Familienaam"}
                 {...register(`contact.lastName`, {
                   required: true,
@@ -373,6 +379,7 @@ function TicketForm() {
               <input
                 type="email"
                 id={`contact.email`}
+                autoComplete={"email"}
                 required={true}
                 placeholder={"Email"}
                 {...register(`contact.email`, {
@@ -497,6 +504,7 @@ function TicketForm() {
                         <input
                           type="text"
                           id={`tickets.${idx}.firstName`}
+                          autoComplete={"given-name"}
                           required={true}
                           placeholder={"Voornaam"}
                           {...register(`tickets.${idx}.firstName`, {
@@ -514,6 +522,7 @@ function TicketForm() {
                         <input
                           type="text"
                           id={`tickets.${idx}.lastName`}
+                          autoComplete={"family-name"}
                           placeholder={"Familienaam"}
                           {...register(`tickets.${idx}.lastName`, {
                             required: true,
@@ -522,20 +531,35 @@ function TicketForm() {
                       </div>
                       <div>
                         <label
-                          htmlFor={`tickets.${idx}.birthDate`}
+                          htmlFor={`tickets.${idx}.phone`}
                           className={"required"}
                         >
-                          Geboortedatum
+                          Telefoon
                         </label>
                         <input
-                          type="date"
-                          id={`tickets.${idx}.birthDate`}
-                          placeholder={"Geboortedatum"}
-                          min={"1950-01-01"}
-                          max={"2011-06-10"}
-                          {...register(`tickets.${idx}.birthDate`, {
+                          type="tel"
+                          id={`tickets.${idx}.phone`}
+                          autoComplete={"tel"}
+                          placeholder={"Telefoon  (in geval van nood)"}
+                          {...register(`tickets.${idx}.phone`, {
                             required: true,
-                            valueAsDate: true,
+                          })}
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor={`tickets.${idx}.yearOFBirth`}>
+                          Geboortejaar
+                        </label>
+                        <input
+                          type="number"
+                          id={`tickets.${idx}.yearOFBirth`}
+                          placeholder={"Geboortejaar"}
+                          autoComplete={"bday-year"}
+                          min={1945}
+                          max={2012}
+                          {...register(`tickets.${idx}.yearOFBirth`, {
+                            required: false,
+                            valueAsNumber: true,
                           })}
                         />
                       </div>
@@ -546,19 +570,9 @@ function TicketForm() {
                         <input
                           type="text"
                           id={`tickets.${idx}.residence`}
+                          autoComplete={"address-level2"}
                           placeholder={"Woonplaats"}
                           {...register(`tickets.${idx}.residence`, {
-                            required: false,
-                          })}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor={`tickets.${idx}.phone`}>Telefoon</label>
-                        <input
-                          type="text"
-                          id={`tickets.${idx}.phone`}
-                          placeholder={"Telefoon  (in geval van nood)"}
-                          {...register(`tickets.${idx}.phone`, {
                             required: false,
                           })}
                         />
@@ -647,7 +661,7 @@ function TicketForm() {
               }}
             />
             {!isTablet && fields.length > 0 && <CartSummary tickets={fields} />}
-            <h2>Totaal: €{totalPrice()}</h2>
+            <h2>Totaal: €{totalPrice(fields)}</h2>
             {showErrors && (
               <div id={"form-errors"}>
                 {!token && (
