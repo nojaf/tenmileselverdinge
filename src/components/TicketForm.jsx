@@ -534,13 +534,13 @@ function TicketForm() {
                           htmlFor={`tickets.${idx}.phone`}
                           className={"required"}
                         >
-                          Telefoon
+                          Telefoon (in geval van nood)
                         </label>
                         <input
                           type="tel"
                           id={`tickets.${idx}.phone`}
                           autoComplete={"tel"}
-                          placeholder={"Telefoon  (in geval van nood)"}
+                          placeholder={"Telefoon (in geval van nood)"}
                           {...register(`tickets.${idx}.phone`, {
                             required: true,
                           })}
