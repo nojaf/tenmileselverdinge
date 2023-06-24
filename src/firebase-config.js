@@ -32,5 +32,5 @@ export const ordersCollections = collection(store, "orders");
 
 export const apiUrl =
   window.location.hostname === "localhost"
-    ? "http://127.0.0.1:5001/ten-miles-elverdinge-2023/us-central1/createPaymentLink"
+    ? "http://127.0.0.1:5001/ten-miles-elverdinge-2023/europe-west1/createPaymentLink"
     : "https://createpaymentlink-otquim2qwa-ew.a.run.app";
