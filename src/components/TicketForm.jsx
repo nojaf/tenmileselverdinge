@@ -547,17 +547,17 @@ function TicketForm() {
                         />
                       </div>
                       <div>
-                        <label htmlFor={`tickets.${idx}.yearOFBirth`}>
+                        <label htmlFor={`tickets.${idx}.yearOfBirth`}>
                           Geboortejaar
                         </label>
                         <input
                           type="number"
-                          id={`tickets.${idx}.yearOFBirth`}
+                          id={`tickets.${idx}.yearOfBirth`}
                           placeholder={"Geboortejaar"}
                           autoComplete={"bday-year"}
                           min={1945}
                           max={2012}
-                          {...register(`tickets.${idx}.yearOFBirth`, {
+                          {...register(`tickets.${idx}.yearOfBirth`, {
                             required: false,
                             valueAsNumber: true,
                           })}
