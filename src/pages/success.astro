@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Betaling gelukt">
+  <main>
+    <h1>Betaling gelukt!</h1>
+    <p>
+      Bedankt voor je bestelling! <br />Je ontvangt een bevestiging per e-mail
+      van <em>info@tenmileselverdinge.be</em>
+    </p>
+    <p>
+      <strong>Kijk</strong> zeker even in je <strong>spam folder!</strong> Naarmate
+      het evenement nadert, zullen we je via e-mail op de hoogte houden.
+    </p>
+  </main>
+</Layout>
+<style>
+  h1 {
+    display: inline-block;
+    color: var(--success);
+    margin-bottom: var(--unit-2);
+    text-transform: uppercase;
+  }
+</style>

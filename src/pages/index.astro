@@ -6,17 +6,24 @@ import Layout from "../layouts/Layout.astro";
   <main>
     <small
       ><a href="https://lcdestresskikkers.be/" target="_blank"
-        >LC de StreSSkikkerS</a
+        >LC de Stresskikkers</a
       ><br />presenteren</small
     >
     <h1>de Ten Miles van Elverdinge</h1>
     <h2>
       <time>23/09/2023</time>
     </h2>
+    <h3>Met aansluitend Oktoberfest!</h3>
+    <a id="cta" href="/tickets">
+      <button> Bestel hier tickets!</button>
+    </a>
   </main>
 </Layout>
 <style>
   main {
+    margin: 0;
+    padding: 0;
+    max-width: initial;
     background-color: var(--primary);
     color: var(--white);
     display: flex;
@@ -35,19 +42,42 @@ import Layout from "../layouts/Layout.astro";
   }
 
   main h1,
-  main h2 {
+  main h2,
+  main h3 {
     font-weight: 600;
     text-transform: uppercase;
+    margin: 0;
+    text-align: center;
   }
 
   main h1 {
     font-size: var(--unit-3);
-    text-align: center;
   }
 
   main h2 {
     font-size: var(--unit-3);
-    text-align: center;
-    margin: 0;
+  }
+
+  main h3 {
+    font-size: var(--unit-2);
+    margin-top: var(--unit);
+    color: var(--white);
+  }
+
+  #cta {
+    margin: var(--unit-4) 0;
+  }
+
+  #cta button {
+    font-size: var(--unit-2);
+    padding: var(--unit);
+    color: var(--white);
+    background-color: var(--dark);
+    border-color: var(--dark-border);
+  }
+
+  #cta button:hover,
+  #cta button:focus {
+    background-color: var(--dark-hover);
   }
 </style>
