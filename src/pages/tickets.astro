@@ -490,16 +490,24 @@ import TicketForm from "../components/TicketForm.jsx";
 
   #turnstile-wrapper {
     margin: 1rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
 
   #turnstile-wrapper em {
-    margin-right: calc(var(--unit) / 2);
+    display: block;
+    margin-bottom: var(--unit);
   }
 
   @media screen and (min-width: 960px) {
+    #turnstile-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #turnstile-wrapper em {
+      margin-right: calc(var(--unit) / 2);
+    }
+
     #ticket-form {
       display: flex;
       flex-direction: row-reverse;
