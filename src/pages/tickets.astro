@@ -7,7 +7,7 @@ import TicketForm from "../components/TicketForm.jsx";
 <Layout title="Tickets">
   <main>
     <h1>Bestel tickets!</h1>
-    <h2 style="color:red;font-size: 3rem;">
+    <h2 style="color:red;font-size: 2rem;">
       <strong>Momenteel zijn we dit systeem aan het testen!</strong>
       <br />Gelieve enkel verder te gaan op uitnodiging van de organisatie.
     </h2>
@@ -441,6 +441,11 @@ import TicketForm from "../components/TicketForm.jsx";
     color: var(--primary-border);
     z-index: 10;
     font-family: var(--heading-font);
+  }
+
+  .ticket .confirm button {
+    grid-column: 2;
+    justify-self: end;
   }
 
   input[type="submit"] {

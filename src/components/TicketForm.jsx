@@ -287,8 +287,21 @@ function TicketForm() {
         return;
       }
 
-      console.log(data);
-      console.table(data.tickets);
+      if (
+        import.meta &&
+        import.meta.env &&
+        import.meta.env.MODE === "development"
+      ) {
+        console.log("data", data);
+        console.table(data.tickets);
+        console.log("formState", formState.errors);
+      }
+
+      if (!formState.isValid) {
+        setCollapsedTickets([]);
+        return;
+      }
+
       setCurrentState("loading");
       const document = await addDoc(ordersCollections, {
         ...data,
@@ -310,7 +323,9 @@ function TicketForm() {
     }
   };
 
-  const showErrors = formState.isSubmitted && (!token || fields.length === 0);
+  const showErrors =
+    formState.isSubmitted &&
+    (!token || fields.length === 0 || !formState.isValid);
 
   switch (currentState) {
     case "error":
@@ -524,6 +539,7 @@ function TicketForm() {
                           id={`tickets.${idx}.lastName`}
                           autoComplete={"family-name"}
                           placeholder={"Familienaam"}
+                          required={true}
                           {...register(`tickets.${idx}.lastName`, {
                             required: true,
                           })}
@@ -539,7 +555,7 @@ function TicketForm() {
                         <input
                           type="tel"
                           id={`tickets.${idx}.phone`}
-                          autoComplete={"tel"}
+                          required={true}
                           placeholder={"Telefoon (in geval van nood)"}
                           {...register(`tickets.${idx}.phone`, {
                             required: true,
@@ -625,6 +641,14 @@ function TicketForm() {
                           </label>
                         </div>
                       </div>
+                      <div className="confirm">
+                        <button
+                          className={"primary"}
+                          onClick={() => toggleRaceTicket(idx)}
+                        >
+                          Bevestig
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -669,6 +693,9 @@ function TicketForm() {
                 )}
                 {fields.length === 0 && (
                   <p>Gelieve tickets toe te voegen via de groene knop!</p>
+                )}
+                {!formState.isValid && (
+                  <p>Zijn alle verpichte velden (met *) ingevuld?</p>
                 )}
               </div>
             )}
