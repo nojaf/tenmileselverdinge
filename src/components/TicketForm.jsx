@@ -250,6 +250,7 @@ function TicketForm() {
   const [token, setToken] = useState(null);
   const isTablet = useMediaQuery("screen and (min-width: 960px)");
   const [collapsedTickets, setCollapsedTickets] = useState([]);
+  const [invalidTickets, setInvalidTickets] = useState([]);
   const removeTicket = (removeIdx) => {
     remove(removeIdx);
   };
@@ -292,13 +293,41 @@ function TicketForm() {
         import.meta.env &&
         import.meta.env.MODE === "development"
       ) {
+        console.log("turnstile", token);
         console.log("data", data);
         console.table(data.tickets);
-        console.log("formState", formState.errors);
       }
 
-      if (!formState.isValid) {
-        setCollapsedTickets([]);
+      function isEmptyString(v) {
+        if (typeof v === "string") {
+          return v.trim().length === 0;
+        }
+        return true;
+      }
+
+      // Validate each run ticket
+      const nonValidTickets = data.tickets
+        .map(({ type, firstName, lastName, phone }, idx) => {
+          return {
+            idx,
+            isRace: type.startsWith("race"),
+            isInvalid:
+              isEmptyString(firstName) ||
+              isEmptyString(lastName) ||
+              isEmptyString(phone),
+          };
+        })
+        .filter((r) => r.isRace && r.isInvalid)
+        .map((r) => r.idx);
+
+      // Is any ticket is invalid open it and collapse the others.
+      if (nonValidTickets.length > 0) {
+        const validTickets = Array.from(
+          { length: data.tickets.length },
+          (_, index) => index
+        ).filter((index) => !nonValidTickets.includes(index));
+        setCollapsedTickets(validTickets);
+        setInvalidTickets(nonValidTickets);
         return;
       }
 
@@ -325,7 +354,7 @@ function TicketForm() {
 
   const showErrors =
     formState.isSubmitted &&
-    (!token || fields.length === 0 || !formState.isValid);
+    (!token || fields.length === 0 || invalidTickets.length > 0);
 
   switch (currentState) {
     case "error":
@@ -694,7 +723,7 @@ function TicketForm() {
                 {fields.length === 0 && (
                   <p>Gelieve tickets toe te voegen via de groene knop!</p>
                 )}
-                {!formState.isValid && (
+                {invalidTickets.length > 0 && (
                   <p>Zijn alle verpichte velden (met *) ingevuld?</p>
                 )}
               </div>
