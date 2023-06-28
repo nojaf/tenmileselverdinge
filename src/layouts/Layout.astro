@@ -1,6 +1,6 @@
 ﻿---
 import { Icon } from "astro-iconify";
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.replaceAll("/", "");
 ---
@@ -11,6 +11,16 @@ const currentPath = pathname.replaceAll("/", "");
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="loopwedstrijd, Elverdinge, Stresskikkers, kikkers, ten, miles, oktoberfest, drino, schnitzel, tartiflette, race, lopen"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Loopclub de Stresskikkers Elverdinge" />
+    <meta name="robots" content="noarchive" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="og:title" content={`${title} | Ten miles Elverdinge`} />
     <title>{title} | Ten miles Elverdinge</title>
     <link rel="icon" href="/favicon.ico?v2" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
