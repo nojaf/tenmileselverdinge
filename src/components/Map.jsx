@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Map, { Layer, Marker, Source } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useCopyToClipboard } from "usehooks-ts";
@@ -327,7 +327,7 @@ const tenMilesData = {
 };
 
 const tenMilesTrail = {
-  id: "trail-line",
+  id: "ten-miles-trail-line",
   type: "line",
   source: "tenMilesTrail",
   layout: {
@@ -341,18 +341,43 @@ const tenMilesTrail = {
   },
 };
 
-const centerPoint = tenMilesCoords[tenMilesCoords.length - 1];
+import eightKmCoords from "./8km-trail.json";
+
+const eightKmData = {
+  type: "Feature",
+  geometry: {
+    type: "LineString",
+    coordinates: eightKmCoords.map(({ lat, lng }) => [lng, lat]),
+  },
+};
+
+const eightKmTrail = {
+  id: "trail-line",
+  type: "line",
+  source: "8kmTrail",
+  layout: {
+    "line-join": "round",
+    "line-cap": "round",
+  },
+  paint: {
+    "line-color": "#fef160",
+    "line-width": 6,
+    "line-opacity": 0.7,
+  },
+};
+
+const centerPoint = eightKmCoords[eightKmCoords.length - 1];
 
 const MapOfTenMiles = () => {
+  const mapRef = useRef();
   const [_value, copy] = useCopyToClipboard();
+  const [newCoords, setNewCoords] = useState([]);
   const onClick = (e) => {
     const { lat, lng } = e.lngLat;
-    fetch("http://localhost:8080", {
-      body: JSON.stringify(e.lngLat),
-      method: "POST",
-    }).then(() => {
-      console.log("Saved!", e.lngLat);
-    });
+    setNewCoords((prevCoords) => [...prevCoords, e.lngLat]);
+    if (mapRef && mapRef.current) {
+      mapRef.current.setCenter(e.lngLat);
+    }
     //
     //     copy(
     //       `{
@@ -366,14 +391,24 @@ const MapOfTenMiles = () => {
     //     });
   };
 
+  const onSave = () => {
+    fetch("http://localhost:8080", {
+      body: JSON.stringify(newCoords),
+      method: "POST",
+    }).then(() => {
+      console.log("Saved!", newCoords);
+    });
+  };
+
   return (
     <div>
       <Map
+        ref={mapRef}
         mapboxAccessToken={accessToken}
         initialViewState={{
           longitude: centerPoint.lng, //2.81591305702237,
           latitude: centerPoint.lat, // 50.881228014890375,
-          zoom: 20,
+          zoom: 21,
         }}
         style={{
           width: "100vw",
@@ -389,6 +424,9 @@ const MapOfTenMiles = () => {
         <Source id={"tenMilesTrail"} type="geojson" data={tenMilesData}>
           <Layer {...tenMilesTrail} />
         </Source>
+        <Source id={"8kmTrail"} type={"geojson"} data={eightKmData}>
+          <Layer {...eightKmTrail} />
+        </Source>
         {/*{markers.map(({ lat, lng, route, icon, description }, idx) => {*/}
         {/*  return (*/}
         {/*    <Marker*/}
@@ -403,6 +441,9 @@ const MapOfTenMiles = () => {
         {/*  );*/}
         {/*})}*/}
       </Map>
+      <button onClick={onSave} style={{ position: "fixed", zIndex: "100" }}>
+        Save
+      </button>
     </div>
   );
 };
