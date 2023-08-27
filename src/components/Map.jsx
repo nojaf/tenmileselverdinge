@@ -316,7 +316,7 @@ function routeToColor(route) {
   }
 }
 
-import tenMilesCoords from "./ten-miles-trail.json";
+import tenMilesCoords from "./ten-miles-afstand-meten.json";
 
 const tenMilesData = {
   type: "Feature",
@@ -441,9 +441,9 @@ const MapOfTenMiles = () => {
         {/*  );*/}
         {/*})}*/}
       </Map>
-      <button onClick={onSave} style={{ position: "fixed", zIndex: "100" }}>
-        Save
-      </button>
+      {/*<button onClick={onSave} style={{ position: "fixed", zIndex: "100" }}>*/}
+      {/*  Save*/}
+      {/*</button>*/}
     </div>
   );
 };
