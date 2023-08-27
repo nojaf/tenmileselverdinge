@@ -53,10 +53,11 @@ open CoordinateSharp
 let metersBetweenCoordinates ((lngA, latA), (lngB, latB)) =
     let coordinateA = Coordinate(lat = latA, longi = lngA)
     let coordinateB = Coordinate(lat = latB, longi = lngB)
-    Distance(coordinateA,coordinateB).Meters
-    
+    Distance(coordinateA, coordinateB).Meters
+
 let totalDistance (file: FileInfo) =
     let content = File.ReadAllText(file.FullName)
+
     match Decode.fromString (Decode.array lngLatDecoder) content with
     | Result.Error _error -> 0.
     | Result.Ok coordinates ->
@@ -64,7 +65,7 @@ let totalDistance (file: FileInfo) =
         |> Array.pairwise
         |> Array.Parallel.map metersBetweenCoordinates
         |> Array.sum
-        
+
 totalDistance (FileInfo(Path.Combine(__SOURCE_DIRECTORY__, "src", "components", "8km-trail.json")))
 
 totalDistance (FileInfo(Path.Combine(__SOURCE_DIRECTORY__, "src", "components", "ten-miles-trail.json")))
