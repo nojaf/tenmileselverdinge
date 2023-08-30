@@ -407,7 +407,7 @@ const MapOfTenMiles = () => {
         mapboxAccessToken={accessToken}
         initialViewState={{
           longitude: 2.799107241708615,
-          latitude: 50.88091528571632, 
+          latitude: 50.88091528571632,
           zoom: 13,
         }}
         style={{

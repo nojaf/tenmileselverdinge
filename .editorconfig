@@ -1,5 +1,8 @@
 root = true
 
+[*.{js,mjs,json,astro}]
+end_of_line = lf
+
 [*.astro]
 end_of_line = lf
 indent_style = space
