@@ -316,7 +316,7 @@ function routeToColor(route) {
   }
 }
 
-import tenMilesCoords from "./ten-miles-afstand-meten.json";
+import tenMilesCoords from "./ten-miles-trail.json";
 
 const tenMilesData = {
   type: "Feature",
@@ -406,9 +406,9 @@ const MapOfTenMiles = () => {
         ref={mapRef}
         mapboxAccessToken={accessToken}
         initialViewState={{
-          longitude: centerPoint.lng, //2.81591305702237,
-          latitude: centerPoint.lat, // 50.881228014890375,
-          zoom: 21,
+          longitude: 2.799107241708615,
+          latitude: 50.88091528571632, 
+          zoom: 13,
         }}
         style={{
           width: "100vw",
