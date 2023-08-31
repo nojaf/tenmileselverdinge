@@ -7,7 +7,7 @@ import Layout from "../layouts/Layout.astro";
   title="Info"
   description="Op zaterdag 23 september 2023 organiseert LC De Stresskikkers de eerste editie van de Ten Miles loopwedstrijd van Elverdinge! Om 16u starten we met een 10 miles (16 km) of 8 km fun race in en rondom Elverdinge. Na afloop is er aansluitend maaltijd en Oktoberfest."
 >
-  <main>
+  <main id="map">
     <Map client:only="react" />
   </main>
   <legend>
@@ -18,7 +18,7 @@ import Layout from "../layouts/Layout.astro";
   </legend>
 </Layout>
 <style is:global>
-  main {
+  #map {
     height: 100%;
     width: 100%;
     max-width: initial;
