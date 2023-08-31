@@ -401,21 +401,14 @@ const MapOfTenMiles = () => {
   };
 
   return (
-    <div>
+    <div id={"map-container"}>
       <Map
         ref={mapRef}
         mapboxAccessToken={accessToken}
         initialViewState={{
           longitude: 2.799107241708615,
           latitude: 50.88091528571632,
-          zoom: 13,
-        }}
-        style={{
-          width: "100vw",
-          height: "100vh",
-          position: "fixed",
-          top: "0",
-          left: "0",
+          zoom: 12,
         }}
         mapStyle="mapbox://styles/mapbox/streets-v12"
         // mapStyle="mapbox://styles/mapbox/satellite-streets-v12"
@@ -427,6 +420,15 @@ const MapOfTenMiles = () => {
         <Source id={"8kmTrail"} type={"geojson"} data={eightKmData}>
           <Layer {...eightKmTrail} />
         </Source>
+        <Marker
+          key={"start"}
+          color={"white"}
+          longitude={2.815821520790268}
+          latitude={50.881251529116746}
+          title={"Start en finish!"}
+        >
+          <span style={{ fontSize: "1rem" }}>🏁</span>
+        </Marker>
         {/*{markers.map(({ lat, lng, route, icon, description }, idx) => {*/}
         {/*  return (*/}
         {/*    <Marker*/}

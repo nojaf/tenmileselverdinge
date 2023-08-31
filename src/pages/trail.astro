@@ -1,5 +1,72 @@
 ---
 import Map from "../components/Map.jsx";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Map client:only="react" />
+<Layout
+  title="Info"
+  description="Op zaterdag 23 september 2023 organiseert LC De Stresskikkers de eerste editie van de Ten Miles loopwedstrijd van Elverdinge! Om 16u starten we met een 10 miles (16 km) of 8 km fun race in en rondom Elverdinge. Na afloop is er aansluitend maaltijd en Oktoberfest."
+>
+  <main>
+    <Map client:only="react" />
+  </main>
+  <legend>
+    <ul>
+      <li>Ten Miles</li>
+      <li>8 km</li>
+    </ul>
+  </legend>
+</Layout>
+<style is:global>
+  main {
+    height: 100%;
+    width: 100%;
+    max-width: initial;
+    margin: 0;
+    padding: 0;
+  }
+
+  #map-container {
+    height: 100%;
+    width: 100%;
+  }
+
+  legend {
+    position: fixed;
+    bottom: var(--unit-3);
+    right: var(--unit);
+    background-color: white;
+    z-index: 10;
+    padding: var(--radius);
+    border-radius: var(--radius);
+    font-family: var(--heading-font);
+  }
+
+  legend ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  legend ul li {
+    display: flex;
+    align-items: center;
+  }
+
+  legend ul li::before {
+    content: "";
+    display: inline-block;
+    width: var(--unit);
+    height: var(--unit);
+    border-radius: var(--radius);
+    margin-right: calc(var(--unit) / 2);
+  }
+
+  legend ul li:first-child::before {
+    background-color: #fb778fcc;
+  }
+
+  legend ul li:last-child::before {
+    background-color: #fef160cc;
+  }
+</style>

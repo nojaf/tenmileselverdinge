@@ -42,7 +42,9 @@ const currentPath = pathname.replaceAll("/", "");
       <a href="/tickets" class={currentPath === "tickets" ? "active" : ""}
         >Tickets</a
       >
-      <!--<a href="#">Parkoers</a>-->
+      <a href="/trail" class={currentPath === "trail" ? "active" : ""}
+        >Parcours</a
+      >
       <!--<a href="#">Sponsors</a>-->
     </nav>
     <slot />
