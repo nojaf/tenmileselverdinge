@@ -381,6 +381,45 @@ const signallers = [
   },
 ];
 
+const nadars = [
+  {
+    lat: 50.87398837569941,
+    lng: 2.802831181271614,
+  },
+  {
+    lat: 50.87623481522604,
+    lng: 2.798444356729277,
+  },
+  {
+    lat: 50.874606827541726,
+    lng: 2.793234574502577,
+  },
+  {
+    lat: 50.903481787293856,
+    lng: 2.7759905083100023,
+  },
+  {
+    lat: 50.902989424934304,
+    lng: 2.7860376568629306,
+  },
+  {
+    lat: 50.893592363395555,
+    lng: 2.793800367227533,
+  },
+  {
+    lat: 50.88605705714102,
+    lng: 2.806674461741295,
+  },
+  {
+    lat: 50.88612914265508,
+    lng: 2.813157793190584,
+  },
+  {
+    lat: 50.8860650142401,
+    lng: 2.8142060993079383,
+  },
+];
+
 function routeToColor(route) {
   switch (route) {
     case "8km":
@@ -457,6 +496,26 @@ const Signaller = () => {
   );
 };
 
+const Nadar = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 48 48"
+    >
+      <path
+        fill="none"
+        stroke="#333"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="4"
+        d="M9 4v40m7-35v28m8-28v28m8-28v28m10 7H6m36-7H6M39 4v40m3-35H6"
+      />
+    </svg>
+  );
+};
+
 const MapOfTenMiles = () => {
   const mapRef = useRef();
   const [_value, copy] = useCopyToClipboard();
@@ -527,6 +586,18 @@ const MapOfTenMiles = () => {
               title={`Seingever ${idx + 1}`}
             >
               <Signaller />
+            </Marker>
+          );
+        })}
+        {nadars.map((n, idx) => {
+          return (
+            <Marker
+              key={`nadar-${idx}`}
+              longitude={n.lng}
+              latitude={n.lat}
+              title={`Nadar ${idx + 1}`}
+            >
+              <Nadar />
             </Marker>
           );
         })}
