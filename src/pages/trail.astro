@@ -1,6 +1,7 @@
 ---
 import Map from "../components/Map.jsx";
 import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-iconify";
 ---
 
 <Layout
@@ -12,8 +13,13 @@ import Layout from "../layouts/Layout.astro";
   </main>
   <legend>
     <ul>
-      <li>Ten Miles</li>
-      <li>8 km</li>
+      <li>
+        <Icon name="square" pack="ion" style="color: #fb778fcc" /> Ten Miles
+      </li>
+      <li><Icon name="square" pack="ion" style="color: #fef160cc" /> 8 km</li>
+      <li>
+        <Icon name="flag-ltr" pack="ooui" style="color:var(--violet-border)" /> Seingever
+      </li>
     </ul>
   </legend>
 </Layout>
@@ -50,23 +56,12 @@ import Layout from "../layouts/Layout.astro";
 
   legend ul li {
     display: flex;
-    align-items: center;
+    align-content: center;
+    margin: calc(var(--unit) / 4) 0;
   }
 
-  legend ul li::before {
-    content: "";
-    display: inline-block;
+  legend ul li svg {
     width: var(--unit);
-    height: var(--unit);
-    border-radius: var(--radius);
     margin-right: calc(var(--unit) / 2);
-  }
-
-  legend ul li:first-child::before {
-    background-color: #fb778fcc;
-  }
-
-  legend ul li:last-child::before {
-    background-color: #fef160cc;
   }
 </style>

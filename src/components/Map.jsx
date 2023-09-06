@@ -305,6 +305,82 @@ const markers = [
   },
 ];
 
+const signallers = [
+  {
+    lat: 50.87813300941394,
+    lng: 2.8136473517632794,
+  },
+  {
+    lat: 50.871585663496774,
+    lng: 2.799673192854982,
+  },
+  {
+    lat: 50.873883391702435,
+    lng: 2.794189685669977,
+  },
+  {
+    lat: 50.882136784853316,
+    lng: 2.786739142703084,
+  },
+  {
+    lat: 50.882136784853316,
+    lng: 2.786739142703084,
+  },
+  {
+    lat: 50.882610736712365,
+    lng: 2.7874641345988778,
+  },
+  {
+    lat: 50.8920058485717,
+    lng: 2.7738245870981757,
+  },
+  {
+    lat: 50.88652317464289,
+    lng: 2.763214281358131,
+  },
+  {
+    lat: 50.90106414210953,
+    lng: 2.7738675598193367,
+  },
+  {
+    lat: 50.90278379005679,
+    lng: 2.77241026151205,
+  },
+  {
+    lat: 50.90288227519875,
+    lng: 2.785766526179117,
+  },
+  {
+    lat: 50.89995139392852,
+    lng: 2.7895205315813314,
+  },
+  {
+    lat: 50.89991080520397,
+    lng: 2.7895574718544935,
+  },
+  {
+    lat: 50.89360387075001,
+    lng: 2.79375606413754,
+    optional: true,
+  },
+  {
+    lat: 50.885543815743006,
+    lng: 2.8014854758245065,
+  },
+  {
+    lat: 50.8855185510545,
+    lng: 2.801582845240546,
+  },
+  {
+    lat: 50.8843502039762,
+    lng: 2.816773681942209,
+  },
+  {
+    lat: 50.883876556061864,
+    lng: 2.8178122438020523,
+  },
+];
+
 function routeToColor(route) {
   switch (route) {
     case "8km":
@@ -368,27 +444,40 @@ const eightKmTrail = {
 
 const centerPoint = eightKmCoords[eightKmCoords.length - 1];
 
+const Signaller = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+    >
+      <path fill="#7f75b9" d="M17 6L3 1v18h2v-6.87z" />
+    </svg>
+  );
+};
+
 const MapOfTenMiles = () => {
   const mapRef = useRef();
   const [_value, copy] = useCopyToClipboard();
   const [newCoords, setNewCoords] = useState([]);
   const onClick = (e) => {
     const { lat, lng } = e.lngLat;
-    setNewCoords((prevCoords) => [...prevCoords, e.lngLat]);
-    if (mapRef && mapRef.current) {
-      mapRef.current.setCenter(e.lngLat);
-    }
+    // setNewCoords((prevCoords) => [...prevCoords, e.lngLat]);
+    // if (mapRef && mapRef.current) {
+    //   mapRef.current.setCenter(e.lngLat);
+    // }
     //
-    //     copy(
-    //       `{
-    //     lat: ${lat},
-    //     lng: ${lng},
-    //     route: "10miles",
-    //
-    // }`
-    //     ).then(() => {
-    //
-    //     });
+    copy(
+      `{
+        "lat": ${lat},
+        "lng": ${lng}
+    }`
+    ).then(() => {});
+    console.log(`{
+        "lat": ${lat},
+        "lng": ${lng}
+    }`);
   };
 
   const onSave = () => {
@@ -429,6 +518,18 @@ const MapOfTenMiles = () => {
         >
           <span style={{ fontSize: "1rem" }}>🏁</span>
         </Marker>
+        {signallers.map((s, idx) => {
+          return (
+            <Marker
+              key={`signaller-${idx}`}
+              longitude={s.lng}
+              latitude={s.lat}
+              title={`Seingever ${idx + 1}`}
+            >
+              <Signaller />
+            </Marker>
+          );
+        })}
         {/*{markers.map(({ lat, lng, route, icon, description }, idx) => {*/}
         {/*  return (*/}
         {/*    <Marker*/}
