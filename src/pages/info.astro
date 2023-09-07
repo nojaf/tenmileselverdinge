@@ -10,15 +10,29 @@ import Layout from "../layouts/Layout.astro";
     <h1>Info</h1>
     <h2>Algemeen schema</h2>
     <div id="schedule">
-      <div id="timeline"></div>
-      <time>16:00</time>
-      <div class="info">
+      <div class="slot">
+        <time>14:00</time>
+        <h3>Start Kids run</h3>
+        <img src="/KidsRun.jpg" alt="Kids run" />
+        <p>Kids run van 4 tot 12 jaar!</p>
+        <div style="display: none">
+          Photo by <a
+            href="https://unsplash.com/@timmossholder?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+            >Tim Mossholder</a
+          > on <a
+            href="https://unsplash.com/photos/elXAqki7yA4?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+            >Unsplash</a
+          >
+        </div>
+      </div>
+      <div class="slot">
+        <time>16:00</time>
         <h3>Start loopwedstrijd</h3>
         <img src="/Race.png" alt="Loopwedstrijd" />
         <p>Start loopwedstrijd 16km en 8km.</p>
       </div>
-      <time>19:00</time>
-      <div class="info">
+      <div class="slot">
+        <time>19:00</time>
         <h3>Start maaltijd</h3>
         <div id="food">
           <img src="/Schnitzel.jpg" alt="Schnitzel" />
@@ -26,12 +40,13 @@ import Layout from "../layouts/Layout.astro";
         </div>
         <p>Heerlijke Schnitzel of Tartiflette.</p>
       </div>
-      <time>22:00</time>
-      <div class="info">
+      <div class="slot">
+        <time>22:00</time>
         <h3>Start Oktoberfest</h3>
         <img src="/Oktoberfest.jpg" alt="Oktoberfest in OC Den Elver" />
         <p>Ein Prosit!</p>
       </div>
+      <div id="timeline"></div>
     </div>
     <p>
       Op
@@ -40,6 +55,21 @@ import Layout from "../layouts/Layout.astro";
         href="https://lcdestresskikkers.be/"
         target="_blank">LC de Stresskikkers</a
       > onze eerste editie van de <strong>Ten Miles</strong> fun run!
+    </p>
+    <p>
+      We starten om <time>14:00</time> met de <strong>Kids run</strong> voor alle
+      jonge atleten van 4 tot 12 jaar oud!
+    </p>
+    <p>Leeftijdscategorieën en afstanden:</p>
+    <ul>
+      <li>4 tot 6 jaar: 200 meter</li>
+      <li>6 tot 8 jaar: 400 meter</li>
+      <li>8 tot 10 jaar: 800 meter</li>
+      <li>10 tot 12 jaar: 1200 meter</li>
+    </ul>
+    <p>
+      Inschrijven voor de Kids Run gebeurt op de dag zelf voor slechts 1 euro!
+      Na afloop krijgt elke deelnemer een beloning. Mis het niet! 🏅🎉🏁
     </p>
     <p>
       Om <strong>
@@ -53,6 +83,11 @@ import Layout from "../layouts/Layout.astro";
       Deelnemers kunnen zich wagen aan de enige echte <strong
         >Ten miles (16km)</strong
       > of het even <em>stoere 8km</em> parkoers.
+    </p>
+    <p>
+      ⚠️ Ook <em>wandelaars hebben de mogelijkheid</em> om mee te doen aan de <em
+        >8 km</em
+      >! ⚠️
     </p>
     <p>
       Na afloop van de wedstrijd kunnen de deelnemers zich opfrissen (lees:
@@ -71,27 +106,19 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 <style>
   #schedule {
-    display: grid;
-    grid-template-columns: 1fr var(--unit) 1fr;
-    grid-template-rows: repeat(8, auto);
-    grid-column-gap: 0;
-    grid-row-gap: 0;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
   }
 
   #timeline {
-    background-color: var(--primary);
-    width: 1px;
-    grid-column-start: 2;
-    grid-column-end: 2;
-    grid-row-start: 1;
-    grid-row-end: 9;
-    justify-self: center;
+    display: none;
   }
 
-  #schedule time {
-    grid-column-start: 1;
-    grid-column-end: 4;
+  #schedule .slot {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #schedule .slot time {
     background-color: var(--primary);
     line-height: 1.5;
     font-size: calc(var(--unit-2) / 1.2);
@@ -100,21 +127,22 @@ import Layout from "../layouts/Layout.astro";
     font-weight: 600;
     color: var(--white);
     text-align: center;
-    display: inline-block;
+    display: block;
   }
 
-  #schedule .info {
-    grid-column-start: 1;
-    grid-column-end: 4;
-    padding: var(--unit) 0;
+  #schedule .slot h3 {
     text-align: center;
-    display: inline-block;
+    padding: var(--unit) 0;
+  }
+
+  #schedule .slot p {
+    text-align: center;
   }
 
   img {
     width: 80%;
-    margin-top: var(--unit);
     object-fit: cover;
+    align-self: center;
   }
 
   #food {
@@ -137,45 +165,47 @@ import Layout from "../layouts/Layout.astro";
     margin: 0;
   }
 
-  #schedule time:nth-of-type(1) {
-    grid-row-start: 1;
-    grid-row-end: 1;
-  }
-
   @media screen and (min-width: 960px) {
     #schedule {
       margin: var(--unit-3) auto;
-      max-width: 960px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr; /* Three columns */
+      grid-column-gap: calc(var(--unit) / 2);
     }
 
-    #schedule time:nth-of-type(1) {
-      grid-column-end: 1;
-    }
-
-    #schedule .info:nth-of-type(2) {
-      grid-column-end: 1;
-    }
-
-    #schedule time:nth-of-type(2) {
-      grid-column-start: 3;
-      grid-row-start: 3;
-    }
-
-    #schedule .info:nth-of-type(3) {
-      grid-row-start: 4;
-      grid-column-start: 3;
-    }
-
-    #schedule time:nth-of-type(3) {
-      grid-row-start: 5;
-      grid-column-start: 1;
+    #timeline {
+      background-color: var(--primary);
+      width: 1px;
+      grid-column-start: 2;
       grid-column-end: 2;
+      grid-row-start: 1;
+      grid-row-end: 5;
+      justify-self: center;
+      display: block;
     }
 
-    #schedule .info:nth-of-type(4) {
-      grid-row-start: 6;
-      grid-column-start: 1;
-      grid-column-end: 2;
+    #schedule .slot {
+      grid-row: auto;
+    }
+
+    #schedule .slot:nth-child(1) {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    #schedule .slot:nth-child(2) {
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    #schedule .slot:nth-child(3) {
+      grid-column: 1;
+      grid-row: 3;
+    }
+
+    #schedule .slot:nth-child(4) {
+      grid-column: 3;
+      grid-row: 4;
     }
   }
 
