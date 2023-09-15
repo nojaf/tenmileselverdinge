@@ -6,6 +6,10 @@ open Suave
 open Thoth.Json.Net
 open System.Xml.Linq
 
+let decode: Decoder<string> =
+        Decode.object (fun fields ->
+            fields.Required.At["serviceType"; "case"]Decode.string)
+
 let lngLatDecoder: string -> JsonValue -> Result<(float * float),DecoderError> =
     Decode.object (fun get ->
         let lng = get.Required.Field "lng" Decode.float
