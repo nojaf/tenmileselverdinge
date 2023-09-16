@@ -1,0 +1,301 @@
+:root {
+  --primary: #68c3a3;
+  --primary-hover: #9fd9c4;
+  --primary-border: #3f9f7d;
+  --light-primary: rgba(183, 244, 216, 0.05);
+  --secondary: #c5eff7;
+  --secondary-hover: #ffffff;
+  --secondary-border: #82dcee;
+  --danger: #f92d51;
+  --danger-hover: #fb778f;
+  --danger-border: #d3062a;
+  --warning: #f7ca18;
+  --warning-hover: #fadb62;
+  --warning-border: #bc9707;
+  --yellow: #fef160;
+  --yellow-hover: #fef8ac;
+  --yellow-border: #feea14;
+  --violet: #aea8d3;
+  --violet-hover: #dddbed;
+  --violet-border: #7f75b9;
+  --success: #3fc380;
+  --success-hover: #79d5a7;
+  --success-border: #2b8a5a;
+  --dark: #333333;
+  --dark-hover: #595959;
+  --dark-border: #0d0d0d;
+  --trans-dark: #3333333f;
+  --white: white;
+  --grey: #efeff0;
+  --grey-hover: #fafafa;
+  --grey-border: #e4e4e6;
+  --unit: 1rem;
+  --unit-2: 2rem;
+  --unit-3: 3rem;
+  --unit-4: 4rem;
+  --container: 1024px;
+  --heading-font: "Barlow", sans-serif;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --radius: 6px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--heading-font);
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font);
+  line-height: 1.4;
+}
+
+input {
+  font-family: var(--font);
+}
+
+body {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  margin: 0 var(--unit);
+  padding: var(--unit) 0;
+  max-width: var(--container);
+}
+
+@media screen and (min-width: 960px) {
+  main {
+    margin: 0 auto;
+  }
+}
+
+h1 {
+  margin: 0;
+}
+
+/* Buttons */
+.btn,
+button,
+input[type="submit"] {
+  text-decoration: none;
+  appearance: none;
+  background-color: #fafbfc;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: var(--radius);
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: var(--dark);
+  cursor: pointer;
+  display: inline-block;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+.btn:hover,
+button:hover,
+input[type="submit"]:hover {
+  background-color: #f3f4f6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+  transform: translateY(1px);
+}
+
+.btn:disabled,
+button:disabled,
+.btn.primary:disabled {
+  background-color: #fafbfc;
+  border-color: rgba(27, 31, 35, 0.15);
+  color: #959da5;
+  cursor: not-allowed;
+}
+
+.btn:active,
+button:active,
+input[type="submit"]:active {
+  background-color: #edeff2;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
+}
+
+.btn:focus,
+button:focus,
+input[type="submit"]:focus {
+  outline: 1px transparent;
+}
+
+.btn:before,
+button:before {
+  display: none;
+}
+
+.btn::-webkit-details-marker {
+  display: none;
+}
+
+.btn.primary,
+button.primary {
+  background-color: var(--primary);
+  border-color: var(--primary-border);
+  color: var(--white);
+}
+
+.btn.primary:hover,
+button.primary:hover,
+.btn.primary:focus,
+button.primary:focus {
+  background-color: var(--primary-hover);
+  color: var(--dark);
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading > div {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.loading > div:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid var(--primary);
+  border-color: var(--primary) transparent var(--primary) transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--unit);
+  min-width: 400px;
+
+  & input,
+  & select,
+  .radio-container {
+    box-sizing: border-box;
+    margin: calc(var(--unit) / 3) 0;
+  }
+
+  & input,
+  & select {
+    border-radius: var(--radius);
+    border: 2px solid var(--grey);
+    font-size: var(--unit);
+    padding: calc(var(--unit) / 2) calc(var(--unit) / 3);
+  }
+
+  #key {
+    background-color: var(--primary);
+    color: var(--white);
+    text-transform: uppercase;
+
+    &::placeholder {
+      color: var(--grey);
+    }
+  }
+
+  & select {
+    & option {
+      text-align: center;
+      padding: var(--unit);
+      display: block;
+    }
+  }
+
+  .radio-container {
+    grid-column: 2 / 3;
+    display: flex;
+    box-sizing: border-box;
+
+    & label {
+      flex: 1;
+      background-color: var(--white);
+    }
+
+    & input[type="radio"] {
+      position: fixed;
+      top: -200vh;
+    }
+
+    & input[type="radio"] + label {
+      box-sizing: border-box;
+      border-right: 2px solid var(--grey);
+      border-top: 2px solid var(--grey);
+      border-bottom: 2px solid var(--grey);
+      display: inline-block;
+      font-family: var(--heading-font);
+      padding: calc(var(--unit) / 2) var(--unit);
+      text-align: center;
+      color: var(--dark);
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    & input[type="radio"] + label:first-of-type {
+      border-left: 2px solid var(--grey);
+      border-top-left-radius: var(--radius);
+      border-bottom-left-radius: var(--radius);
+    }
+
+    & input[type="radio"] + label:last-of-type {
+      border-top-right-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
+    }
+
+    & input[type="radio"] + label:hover {
+      background-color: var(--grey-hover);
+      color: var(--primary-border);
+    }
+
+    & input[type="radio"]:checked + label {
+      box-shadow: var(--white) 0 0 0 0, var(--primary) 0 0 0 2px,
+        transparent 0 0 0 0;
+      border-right: none;
+      color: var(--primary-border);
+      z-index: 10;
+      font-family: var(--heading-font);
+    }
+  }
+}
