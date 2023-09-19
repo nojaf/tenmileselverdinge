@@ -5,6 +5,7 @@ import { useMediaQuery } from "usehooks-ts";
 import { ordersCollections, apiUrl } from "../firebase-config.js";
 import { Turnstile } from "@marsidev/react-turnstile";
 
+/*
 const ticketTypes = {
   "race-schnitzel": {
     price: 26,
@@ -40,6 +41,15 @@ const ticketTypes = {
     price: 10,
     title: "Maaltijd Tartiflette (Kind t.e.m. 12 jaar)",
     summary: "Tartiflette Kind",
+  },
+};
+ */
+
+const ticketTypes = {
+  race: {
+    price: 10,
+    title: "Loopwedstrijd",
+    summary: "Loopwedstrijd",
   },
 };
 
