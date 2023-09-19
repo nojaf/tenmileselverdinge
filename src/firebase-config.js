@@ -34,3 +34,13 @@ export const apiUrl =
   window.location.hostname === "localhost"
     ? "http://127.0.0.1:5001/ten-miles-elverdinge-2023/europe-west1/createPaymentLink"
     : "https://createpaymentlink-otquim2qwa-ew.a.run.app";
+
+export const dayRegistrationApiUrl =
+  window.location.hostname === "localhost"
+    ? "http://127.0.0.1:5001/ten-miles-elverdinge-2023/europe-west1/createDayRegistration"
+    : "https://createdayregistration-otquim2qwa-ew.a.run.app";
+
+export const timeRegistrationApiUrl =
+  window.location.hostname === "localhost"
+    ? "http://127.0.0.1:5001/ten-miles-elverdinge-2023/europe-west1/registerTime"
+    : "https://registertime-otquim2qwa-ew.a.run.app";

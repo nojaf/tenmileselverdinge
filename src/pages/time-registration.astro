@@ -1,0 +1,31 @@
+---
+import "../styles/standalone.css";
+import TimeRegistration from "../components/TimeRegistration.jsx";
+---
+
+<html>
+  <head>
+    <title>Tijdsregistratie</title>
+  </head>
+  <body>
+    <main>
+      <h1>Tijdsregistratie</h1>
+      <TimeRegistration client:only="react" />
+    </main>
+  </body>
+</html>
+<style is:global>
+  form > div {
+    display: flex;
+    margin: 0.66rem 0;
+  }
+
+  form > div > input {
+    flex: 1;
+    margin: 0;
+  }
+
+  form > div > button {
+    margin-left: 6px;
+  }
+</style>

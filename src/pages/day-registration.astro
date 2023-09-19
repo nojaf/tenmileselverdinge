@@ -1,0 +1,118 @@
+---
+import "../styles/standalone.css";
+---
+
+<html>
+  <head>
+    <title>Dag inschrijving</title>
+  </head>
+  <body>
+    <main>
+      <h1>Dag inschrijving</h1>
+      <form>
+        <input
+          type="text"
+          placeholder="Voornaam"
+          name="firstName"
+          autocomplete="off"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Familienaam"
+          name="lastName"
+          autocomplete="off"
+          required
+        />
+        <div class="radio-container">
+          <input
+            name="distance"
+            type="radio"
+            value="10miles"
+            id="10miles"
+            checked=""
+            required
+          /><label class="radio" for="10miles">16 km</label><input
+            name="distance"
+            type="radio"
+            id="8km"
+            value="8km"
+            required
+          /><label class="radio" for="8km">8 km</label>
+        </div>
+        <input
+          type="number"
+          placeholder="Geboortejaar"
+          name="yearOfBirth"
+          autocomplete="off"
+          required
+        />
+        <div class="radio-container">
+          <input
+            name="gender"
+            type="radio"
+            id="gender-m"
+            value="m"
+            checked=""
+            required
+          /><label class="radio" for="gender-m">M</label><input
+            name="gender"
+            type="radio"
+            id="gender-v"
+            value="v"
+            required
+          /><label class="radio" for="gender-v">V</label>
+        </div>
+        <input name="number" placeholder="Nummer" required type="number" />
+        <input name="apiHeader" placeholder="API header" required />
+        <input name="apiKey" placeholder="API key" required />
+        <input type="submit" value="Registreer" />
+      </form>
+    </main>
+  </body>
+</html>
+<script>
+  import { dayRegistrationApiUrl } from "../firebase-config.js";
+
+  const apiHeader = document.querySelector("input[name=apiHeader]");
+  apiHeader.value = localStorage.getItem("apiHeader");
+  const apiKey = document.querySelector("input[name=apiKey]");
+  apiKey.value = localStorage.getItem("apiKey");
+
+  const form = document.querySelector("form");
+  form.addEventListener("submit", (ev) => {
+    try {
+      ev.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+
+      const yearOfBirth = parseInt(data.yearOfBirth);
+      const number = parseInt(data.number);
+      const entry = Object.assign({}, data, {
+        yearOfBirth,
+        number,
+        isDayRegistration: true,
+      });
+      delete entry.apiHeader;
+      delete entry.apiKey;
+
+      localStorage.setItem("apiHeader", data.apiHeader);
+      localStorage.setItem("apiKey", data.apiKey);
+
+      fetch(dayRegistrationApiUrl, {
+        method: "POST",
+        body: JSON.stringify(entry),
+        headers: {
+          [data.apiHeader]: data.apiKey,
+        },
+      }).then(() => {
+        console.log(
+          `Registered [${number}] ${data.firstName} ${data.lastName}!`
+        );
+        location.reload();
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  });
+</script>
