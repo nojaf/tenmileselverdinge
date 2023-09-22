@@ -50,13 +50,32 @@ function getTimeInterval(startDateString, endDateString) {
       </tbody>
     </table>
     <h2>8 km</h2>
-    <ul>
-      {
-        tenMiles.map((r) => {
-          return <li>{r.firstName}</li>;
-        })
-      }
-    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th>Tijd</th>
+          <th>Nummer</th>
+          <th>Voornaam</th>
+          <th>Familienaam</th>
+          <th>Geboortejaar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          eightKm.map((r) => {
+            return (
+              <tr>
+                <td>{getTimeInterval(r.start, r.end)}</td>
+                <td>{r.number}</td>
+                <td>{r.firstName}</td>
+                <td>{r.lastName}</td>
+                <td>{r.yearOfBirth}</td>
+              </tr>
+            );
+          })
+        }
+      </tbody>
+    </table>
   </main>
 </Layout>
 <style>
@@ -68,10 +87,22 @@ function getTimeInterval(startDateString, endDateString) {
     font-size: var(--unit-3);
   }
 
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
   table td,
   table th {
-    border-right: 1px solid var(--grey);
-    border-bottom: 1px solid var(--grey);
+    border: 1px solid var(--grey);
+    text-align: center;
+  }
+
+  table th {
+    padding: calc(var(--unit) / 2) var(--unit);
+  }
+
+  table td {
     padding: calc(var(--unit) / 4) calc(var(--unit) / 2);
   }
 </style>
