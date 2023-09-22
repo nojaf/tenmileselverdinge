@@ -1,0 +1,77 @@
+---
+import Layout from "../layouts/Layout.astro";
+import results from "../components/results.json";
+const tenMiles = results.filter((r) => r.distance === "10miles");
+const eightKm = results.filter((r) => r.distance === "8km");
+
+function getTimeInterval(startDateString, endDateString) {
+  const startDate = new Date(startDateString);
+  const endDate = new Date(endDateString);
+  const timeDifference = endDate - startDate;
+  const hours = Math.floor(timeDifference / 3600000); // 1 hour = 3600000 milliseconds
+  const minutes = Math.floor((timeDifference % 3600000) / 60000); // 1 minute = 60000 milliseconds
+  const seconds = Math.floor((timeDifference % 60000) / 1000); // 1 second = 1000 milliseconds
+
+  return `${hours} h ${minutes} min ${seconds} sec`;
+}
+---
+
+<Layout
+  title="Resultaten"
+  description="Resultaten eerste editie van de Ten Miles loopwedstrijd van Elverdinge!"
+>
+  <main>
+    <h1>Resultaten</h1>
+    <h2>Ten Miles</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Tijd</th>
+          <th>Nummer</th>
+          <th>Voornaam</th>
+          <th>Familienaam</th>
+          <th>Geboortejaar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          tenMiles.map((r) => {
+            return (
+              <tr>
+                <td>{getTimeInterval(r.start, r.end)}</td>
+                <td>{r.number}</td>
+                <td>{r.firstName}</td>
+                <td>{r.lastName}</td>
+                <td>{r.yearOfBirth}</td>
+              </tr>
+            );
+          })
+        }
+      </tbody>
+    </table>
+    <h2>8 km</h2>
+    <ul>
+      {
+        tenMiles.map((r) => {
+          return <li>{r.firstName}</li>;
+        })
+      }
+    </ul>
+  </main>
+</Layout>
+<style>
+  h1 {
+    font-size: var(--unit-4);
+  }
+
+  h2 {
+    font-size: var(--unit-3);
+  }
+
+  table td,
+  table th {
+    border-right: 1px solid var(--grey);
+    border-bottom: 1px solid var(--grey);
+    padding: calc(var(--unit) / 4) calc(var(--unit) / 2);
+  }
+</style>
