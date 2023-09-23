@@ -26,6 +26,7 @@ function getTimeInterval(startDateString, endDateString) {
     <table>
       <thead>
         <tr>
+          <th>Positie</th>
           <th>Tijd</th>
           <th>Nummer</th>
           <th>Voornaam</th>
@@ -35,9 +36,10 @@ function getTimeInterval(startDateString, endDateString) {
       </thead>
       <tbody>
         {
-          tenMiles.map((r) => {
+          tenMiles.map((r, idx) => {
             return (
               <tr>
+                <td>{idx + 1}</td>
                 <td>{getTimeInterval(r.start, r.end)}</td>
                 <td>{r.number}</td>
                 <td>{r.firstName}</td>
@@ -53,6 +55,7 @@ function getTimeInterval(startDateString, endDateString) {
     <table>
       <thead>
         <tr>
+          <th>Positie</th>
           <th>Tijd</th>
           <th>Nummer</th>
           <th>Voornaam</th>
@@ -62,9 +65,10 @@ function getTimeInterval(startDateString, endDateString) {
       </thead>
       <tbody>
         {
-          eightKm.map((r) => {
+          eightKm.map((r, idx) => {
             return (
               <tr>
+                <td>{idx + 1}</td>
                 <td>{getTimeInterval(r.start, r.end)}</td>
                 <td>{r.number}</td>
                 <td>{r.firstName}</td>
