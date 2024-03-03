@@ -614,7 +614,7 @@ const MapOfTenMiles = () => {
       `{
         "lat": ${lat},
         "lng": ${lng}
-    }`
+    }`,
     ).then(() => {});
     console.log(`{
         "lat": ${lat},
