@@ -334,7 +334,7 @@ function TicketForm() {
       if (nonValidTickets.length > 0) {
         const validTickets = Array.from(
           { length: data.tickets.length },
-          (_, index) => index
+          (_, index) => index,
         ).filter((index) => !nonValidTickets.includes(index));
         setCollapsedTickets(validTickets);
         setInvalidTickets(nonValidTickets);
@@ -710,12 +710,12 @@ function TicketForm() {
                   append({ type: newTicket, amount: 1 });
                 } else {
                   const existingTicket = fields.find(
-                    (ticket) => ticket.type === newTicket
+                    (ticket) => ticket.type === newTicket,
                   );
                   if (existingTicket) {
                     update(
                       fields.findIndex((ticket) => ticket.type === newTicket),
-                      { ...existingTicket, amount: existingTicket.amount + 1 }
+                      { ...existingTicket, amount: existingTicket.amount + 1 },
                     );
                   } else {
                     append({ type: newTicket, amount: 1 });

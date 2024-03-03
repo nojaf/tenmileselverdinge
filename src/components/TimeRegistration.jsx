@@ -29,7 +29,7 @@ function TimeRegistration() {
     return (evt) => {
       setRunners((prevRunners) => {
         const nextRunners = prevRunners.map((r, rIdx) =>
-          rIdx === idx ? parseInt(evt.target.value) : r
+          rIdx === idx ? parseInt(evt.target.value) : r,
         );
 
         const addNext = nextRunners.every(isNumber);

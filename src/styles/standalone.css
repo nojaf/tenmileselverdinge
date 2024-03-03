@@ -94,7 +94,8 @@ input[type="submit"] {
   background-color: #fafbfc;
   border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: var(--radius);
-  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+  box-shadow:
+    rgba(27, 31, 35, 0.04) 0 1px 0,
     rgba(255, 255, 255, 0.25) 0 1px 0 inset;
   box-sizing: border-box;
   color: var(--dark);
@@ -290,7 +291,9 @@ form {
     }
 
     & input[type="radio"]:checked + label {
-      box-shadow: var(--white) 0 0 0 0, var(--primary) 0 0 0 2px,
+      box-shadow:
+        var(--white) 0 0 0 0,
+        var(--primary) 0 0 0 2px,
         transparent 0 0 0 0;
       border-right: none;
       color: var(--primary-border);

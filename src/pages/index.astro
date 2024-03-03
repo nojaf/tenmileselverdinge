@@ -6,71 +6,76 @@ import Layout from "../layouts/Layout.astro";
   title="Home"
   description="Op zaterdag 23 september 2023 organiseert LC De Stresskikkers de eerste editie van de Ten Miles loopwedstrijd van Elverdinge! Om 16u starten we met een 10 miles (16 km) of 8 km fun race in en rondom Elverdinge. Na afloop is er aansluitend maaltijd en Oktoberfest."
 >
-  <main id="home">
-    <small
-      ><a href="https://lcdestresskikkers.be/" target="_blank"
-        >LC de Stresskikkers</a
-      ><br />presenteren</small
-    >
+  <main>
+    <small>Loopclub de Stresskikkers<br/>presenteert</small>
     <h1>de Ten Miles van Elverdinge</h1>
     <h2>
-      <time>23/09/2023</time>
+      <time>28/09/2024</time>
     </h2>
     <h3>Met aansluitend Oktoberfest!</h3>
-    <a id="cta" href="/tickets">
-      <button> Bestel hier tickets!</button>
-    </a>
+    <!--<a id="cta" href="/tickets">-->
+    <!--  <button> Bestel hier tickets!</button>-->
+    <!--</a>-->
   </main>
 </Layout>
 <style>
-  #home {
+  main {
     margin: 0;
     padding: 0;
     max-width: initial;
-    background-color: var(--primary);
+    background-color: var(--tenmiles-500);
     color: var(--white);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100%;
   }
 
-  main small {
-    color: var(--dark);
+  small {
+    color: var(--tenmiles-100);
     text-align: center;
+    font-size: var(--font-200);
   }
 
-  main small a {
-    color: var(--dark);
-  }
-
-  main h1,
-  main h2,
-  main h3 {
+  h1, h2, h3 {
     font-weight: 600;
     text-transform: uppercase;
     margin: 0;
     text-align: center;
   }
 
-  main h1,
-  main h2 {
-    font-size: calc(0.66 * var(--unit-3));
+  h1, h2 {
+    font-size: var(--font-700);
   }
-
-  @media screen and (min-width: 400px) {
-    main h1,
-    main h2 {
-      font-size: var(--unit-3);
-    }
+  
+  h1 {
+    margin-block: var(--spacing-400);
   }
-
-  main h3 {
-    font-size: var(--unit-2);
-    margin-top: var(--unit);
+  
+  h3 {
+    font-size: var(--font-300);
+    margin-top: var(--spacing-200);
     color: var(--white);
   }
 
+  @media screen and (min-width: 400px) {
+    h1,
+    h2 {
+      font-size: var(--font-700);
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    h1 {
+      font-size: var(--font-900);
+    }
+
+    h2 {
+      font-size: var(--font-800);
+    }
+  }
+  
   #cta {
     margin: var(--unit-4) 0;
   }
