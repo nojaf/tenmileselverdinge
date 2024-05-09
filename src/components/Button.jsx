@@ -142,6 +142,12 @@ const Button = ({ children, primary = false, large = false, ...props }) => {
 
     &:active {
       background-color: ${backgroundColorActive};
+      box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+      transition: none 0s;
+    }
+
+    &:focus {
+      outline: 1px transparent;
     }
   `;
 
