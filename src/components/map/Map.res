@@ -1,9 +1,6 @@
 %%raw("import 'mapbox-gl/dist/mapbox-gl.css';")
 
 module ReactMapGL = {
-  @@warning("-60")
-  @@warning("-32")
-
   type viewState = {
     longitude: float,
     latitude: float,
@@ -36,7 +33,8 @@ module ReactMapGL = {
     @module("react-map-gl") @react.component
     external make: (
       ~id: string,
-      ~\"type": string,
+      @as("type")
+      ~type_: string,
       ~source: string,
       ~layout: layerLayout,
       ~paint: layerPaint,
@@ -55,12 +53,14 @@ module ReactMapGL = {
   }
 
   type sourceDataGeometry = {
-    \"type": string,
+    @as("type")
+    type_: string,
     coordinates: array<(float, float)>,
   }
 
   type sourceData = {
-    \"type": string,
+    @as("type")
+    type_: string,
     geometry: sourceDataGeometry,
   }
 
@@ -68,7 +68,8 @@ module ReactMapGL = {
     @module("react-map-gl") @react.component
     external make: (
       ~id: string,
-      ~\"type": string,
+      @as("type")
+      ~type_: string,
       ~data: sourceData,
       ~children: React.element,
     ) => React.element = "Source"
@@ -84,9 +85,9 @@ external useCopyToClipboard: unit => (_, string => unit) = "useCopyToClipboard"
 external tenMilesCoords: array<ReactMapGL.lngLat> = "default"
 
 let tenMilesData: ReactMapGL.sourceData = {
-  \"type": "Feature",
+  type_: "Feature",
   geometry: {
-    \"type": "LineString",
+    type_: "LineString",
     coordinates: tenMilesCoords->Array.map(({lat, lng}) => (lng, lat)),
   },
 }
@@ -95,9 +96,9 @@ let tenMilesData: ReactMapGL.sourceData = {
 external eightKmCoords: array<ReactMapGL.lngLat> = "default"
 
 let eightKmData: ReactMapGL.sourceData = {
-  \"type": "Feature",
+  type_: "Feature",
   geometry: {
-    \"type": "LineString",
+    type_: "LineString",
     coordinates: eightKmCoords->Array.map(({lat, lng}) => (lng, lat)),
   },
 }
@@ -125,10 +126,10 @@ let make = () => {
       }}
       mapStyle="mapbox://styles/mapbox/streets-v12"
       onClick={onClick}>
-      <ReactMapGL.Source id="tenMilesTrail" \"type"={"geojson"} data={tenMilesData}>
+      <ReactMapGL.Source id="tenMilesTrail" type_={"geojson"} data={tenMilesData}>
         <ReactMapGL.Layer
           id="ten-miles-trail-line"
-          \"type"="line"
+          type_="line"
           source="tenMilesTrail"
           layout={{
             "line-join": "round",
@@ -141,10 +142,10 @@ let make = () => {
           }}
         />
       </ReactMapGL.Source>
-      <ReactMapGL.Source id="8kmTrail" \"type"={"geojson"} data={eightKmData}>
+      <ReactMapGL.Source id="8kmTrail" type_={"geojson"} data={eightKmData}>
         <ReactMapGL.Layer
           id="trail-line"
-          \"type"="line"
+          type_="line"
           source="8kmTrail"
           layout={{
             "line-join": "round",
