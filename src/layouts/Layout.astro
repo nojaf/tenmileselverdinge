@@ -1,6 +1,7 @@
 ﻿---
-import Navigation from "../components/Navigation.astro";
+import { ViewTransitions } from 'astro:transitions';
 const { title, description } = Astro.props;
+import Navigation from "../components/Navigation.astro";
 ---
 
 <!doctype html>
@@ -20,6 +21,7 @@ const { title, description } = Astro.props;
     <meta name="revisit-after" content="7 days" />
     <meta name="og:title" content={`${title} | Ten miles Elverdinge`} />
     <title>{title} | Ten miles Elverdinge</title>
+    <ViewTransitions />
     <link rel="icon" href="/favicon.ico?v2" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
