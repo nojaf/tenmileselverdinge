@@ -1,0 +1,130 @@
+---
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.replaceAll("/", "");
+---
+
+<nav>
+  <div>
+    <a href="/" class={currentPath === "" ? "active" : ""}> Home</a>
+    <!--<a href="/info" class={currentPath === "info" ? "active" : ""}>Info</a>-->
+
+    <!-- <a href="/tickets" class={currentPath === "tickets" ? "active" : ""} -->
+    <!--  >Tickets</a-->
+    <!--&gt;-->
+    <a href="/trail" class={currentPath === "trail" ? "active" : ""}>Parcours</a
+    >
+    <!--<a href="/results" class={currentPath === "results" ? "active" : ""}>-->
+    <!--  Resultaten-->
+    <!--</a>-->
+    <!--<a href="#">Sponsors</a>-->
+  </div>
+  <button>
+    <iconify-icon
+      id="mobile-toggle"
+      icon="codicon:three-bars"
+      width="20"
+      height="20"></iconify-icon>
+  </button>
+</nav>
+<style>
+  nav {
+    --button-size: 20px;
+    --item-height: var(--spacing-500);
+
+    background-color: var(--dark-900);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  div {
+    max-height: var(--item-height);
+    transition: all 300ms;
+    overflow-y: hidden;
+  }
+
+  a {
+    display: block;
+    line-height: var(--item-height);
+    font-size: var(--font-300);
+    font-family: var(--heading-font);
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    padding: 0 var(--spacing-100);
+    transition:
+      background-color 200ms,
+      width 200ms;
+    transition: all 300ms;
+  }
+
+  a:hover {
+    background-color: var(--tenmiles-500);
+  }
+
+  a:active {
+    font-weight: bolder;
+  }
+
+  a.active {
+    background-color: var(--tenmiles-500);
+  }
+
+  nav.open {
+    & div {
+        max-height: calc(2 * var(--item-height));
+    }
+  }
+
+  button {
+    font-size: var(--buton-size);
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    color: var(--white);
+    transition: color 400ms;
+    cursor: pointer;
+    height: var(--buton-size);
+    width: var(--buton-size);
+    display: flex;
+    justify-content: center;
+    margin-right: var(--spacing-50);
+    margin-top: var(--spacing-50);
+  }
+
+  button:hover {
+    color: var(--tenmiles-500);
+  }
+
+  button:active {
+    color: var(--tenmiles-400);
+  }
+
+  nav.open  button:active {
+    color: var(--dark-900);
+  }
+
+  @media screen and (min-width: 960px) {
+    nav button {
+      display: none;
+    }
+
+    div {
+        display: flex;
+
+        & a {
+            padding-inline: var(--spacing-200);
+        }
+    }
+  }
+</style>
+<script>
+  const btn = document.querySelector("nav > button");
+  if (btn) {
+    const nav = document.querySelector("nav");
+    btn.addEventListener("click", () => {
+      nav.classList.toggle("open");
+    });
+  }
+</script>

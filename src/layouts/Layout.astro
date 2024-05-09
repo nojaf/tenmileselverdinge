@@ -1,11 +1,9 @@
 ﻿---
-import "../styles/style.css"
-import { Icon } from "astro-icon/components";
+import Navigation from "../components/Navigation.astro";
 const { title, description } = Astro.props;
-const pathname = new URL(Astro.request.url).pathname;
-const currentPath = pathname.replaceAll("/", "");
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -29,34 +27,125 @@ const currentPath = pathname.replaceAll("/", "");
       href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600"
       rel="stylesheet"
     />
+    <script
+      src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
+    ></script>
   </head>
   <body>
-    <!--<nav>-->
-      <!--<a href="/" class={currentPath === "" ? "active" : ""}> Home</a>-->
-      <!--<a href="/info" class={currentPath === "info" ? "active" : ""}>Info</a>-->
-      <!--<button>-->
-      <!--  <Icon id="mobile-toggle" pack="codicon" name="three-bars" />-->
-      <!--</button>-->
-      <!--<a href="/tickets" class={currentPath === "tickets" ? "active" : ""}-->
-      <!--  >Tickets</a-->
-      <!--&gt;-->
-      <!--<a href="/trail" class={currentPath === "trail" ? "active" : ""}-->
-      <!--  >Parcours</a-->
-      <!--&gt;-->
-      <!--<a href="/results" class={currentPath === "results" ? "active" : ""}>-->
-      <!--  Resultaten-->
-      <!--</a>-->
-      <!--<a href="#">Sponsors</a>-->
-    <!--</nav>-->
+    <Navigation />
     <slot />
   </body>
 </html>
-<!--<script>-->
-<!--  const btn = document.querySelector("nav > button");-->
-<!--  if (btn) {-->
-<!--    const nav = document.querySelector("nav");-->
-<!--    btn.addEventListener("click", () => {-->
-<!--      nav.classList.toggle("open");-->
-<!--    });-->
-<!--  }-->
-<!--</script>-->
+<style is:global>
+  :root {
+    --spacing-50: 4px;
+    --spacing-100: 8px;
+    --spacing-200: 12px;
+    --spacing-300: 16px;
+    --spacing-400: 24px;
+    --spacing-500: 32px;
+    --spacing-600: 48px;
+    --spacing-700: 64px;
+    --spacing-800: 96px;
+    --spacing-900: 128px;
+    --spacing-950: 192px;
+
+    --font-50: 12px;
+    --font-100: 14px;
+    --font-200: 16px;
+    --font-300: 18px;
+    --font-400: 20px;
+    --font-500: 24px;
+    --font-600: 30px;
+    --font-700: 36px;
+    --font-800: 48px;
+    --font-900: 60px;
+    --font-950: 72px;
+
+    --line-height: 1.5;
+    --heading-line-height: 1.25;
+    --radius: 6px;
+
+    --heading-font: "Barlow", sans-serif;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+    --tenmiles-50: #effaf5;
+    --tenmiles-100: #d8f3e5;
+    --tenmiles-200: #b4e6d0;
+    --tenmiles-300: #82d3b4;
+    --tenmiles-400: #68c3a3;
+    --tenmiles-500: #2c9d79;
+    --tenmiles-600: #1d7e61;
+    --tenmiles-700: #176550;
+    --tenmiles-800: #155041;
+    --tenmiles-900: #124236;
+    --tenmiles-950: #09251e;
+
+    --dark-50: #f6f6f6;
+    --dark-100: #e7e7e7;
+    --dark-200: #d1d1d1;
+    --dark-300: #b0b0b0;
+    --dark-400: #888888;
+    --dark-500: #6d6d6d;
+    --dark-600: #5d5d5d;
+    --dark-700: #4f4f4f;
+    --dark-800: #454545;
+    --dark-900: #333333;
+    --dark-950: #262626;
+
+    --white: white;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-family: var(--font);
+    display: flex;
+    flex-direction: column;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--heading-font);
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+</style>

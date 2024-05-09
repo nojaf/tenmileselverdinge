@@ -39,5 +39,5 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 To extract the coordinates from https://www.afstandmeten.nl/
 
 ```js
-JSON.stringify(gRoutes[0].positions.map(p => p.point))
+JSON.stringify(gRoutes[0].positions.map((p) => p.point));
 ```
