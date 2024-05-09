@@ -1,19 +1,26 @@
 ﻿---
 import Layout from "../layouts/Layout.astro";
+
+import kidsRun from "../images/KidsRun.jpg"
+import race from "../images/Race.png"
+import winners from "../images/Winnaars.jpg"
+import schnitzel from "../images/Schnitzel.jpg"
+import tartiflette from "../images/Tartiflette.jpg"
+import oktoberfest from "../images/Oktoberfest.jpg"
 ---
 
 <Layout
   title="Info"
-  description="Op zaterdag 23 september 2023 organiseert LC De Stresskikkers de eerste editie van de Ten Miles loopwedstrijd van Elverdinge! Om 16u starten we met een 10 miles (16 km) of 8 km fun race in en rondom Elverdinge. Na afloop is er aansluitend maaltijd en Oktoberfest."
+  description="Op zaterdag 28 september 2024 organiseert LC De Stresskikkers de tweede editie van de Ten Miles loopwedstrijd van Elverdinge! Om 15u30 starten we met een 10 miles (16 km) of 8 km fun race in en rondom Elverdinge. Na afloop is er aansluitend maaltijd en Oktoberfest."
 >
-  <main>
+  <main class="container">
     <h1>Info</h1>
     <h2>Algemeen schema</h2>
     <div id="schedule">
       <div class="slot">
-        <time>14:00</time>
+        <time datetime="2024-09-28 14:00">14:00</time>
         <h3>Start Kids run</h3>
-        <img src="/KidsRun.jpg" alt="Kids run" />
+        <img src={kidsRun.src} alt="Kids run" />
         <p>Kids run van 4 tot 12 jaar!</p>
         <div style="display: none">
           Photo by <a
@@ -26,35 +33,39 @@ import Layout from "../layouts/Layout.astro";
         </div>
       </div>
       <div class="slot">
-        <time>16:00</time>
+        <time datetime="2024-09-28 15:30">15:30</time>
         <h3>Start loopwedstrijd</h3>
-        <img src="/Race.png" alt="Loopwedstrijd" />
+        <img src={race.src} width={600} alt="Loopwedstrijd" />
         <p>Start loopwedstrijd 16km en 8km.</p>
       </div>
       <div class="slot">
-        <time>19:00</time>
+        <time datetime="2024-09-28 17:30">17:30</time>
+        <h3>Prijsuitreiking</h3>
+        <img src={winners.src} alt="Prijsuitreiking">
+        <p>Start prijsuitreiking</p>
+      </div>
+      <div class="slot">
+        <time datetime="2024-09-28 19:00">19:00</time>
         <h3>Start maaltijd</h3>
         <div id="food">
-          <img src="/Schnitzel.jpg" alt="Schnitzel" />
-          <img src="/Tartiflette.jpg" alt="Tartiflette" />
+          <img src={schnitzel.src} alt="Schnitzel" />
+          <img src={tartiflette.src} alt="Tartiflette" />
         </div>
         <p>Heerlijke Schnitzel of Tartiflette.</p>
       </div>
       <div class="slot">
-        <time>22:00</time>
+        <time>21:30</time>
         <h3>Start Oktoberfest</h3>
-        <img src="/Oktoberfest.jpg" alt="Oktoberfest in OC Den Elver" />
+        <img src={oktoberfest.src} alt="Oktoberfest in OC Den Elver" />
         <p>Ein Prosit!</p>
       </div>
       <div id="timeline"></div>
     </div>
     <p>
       Op
-      <time>zaterdag 23 september 2023</time>
-      organiseren wij met <a
-        href="https://lcdestresskikkers.be/"
-        target="_blank">LC de Stresskikkers</a
-      > onze eerste editie van de <strong>Ten Miles</strong> fun run!
+      <time>zaterdag 28 september 2024</time>
+      organiseren wij met <em>LC de Stresskikkers</em> onze tweede editie van de
+      <strong>Ten Miles</strong> fun run!
     </p>
     <p>
       We starten om <time>14:00</time> met de <strong>Kids run</strong> voor alle
@@ -73,7 +84,7 @@ import Layout from "../layouts/Layout.astro";
     </p>
     <p>
       Om <strong>
-        <time>16:00u</time>
+        <time>15:30u</time>
       </strong> gaan we van start met de loopwedstrijd aan <a
         href="https://www.google.com/maps?ll=50.881013,2.815671&z=17&t=m&hl=nl&gl=US&mapclient=embed&q=50%C2%B052%2751.6%22N+2%C2%B048%2756.4%22E+50.880994,+2.815664@50.880994,2.815664"
         target="_blank">OC Den Elver</a
@@ -82,7 +93,7 @@ import Layout from "../layouts/Layout.astro";
     <p>
       Deelnemers kunnen zich wagen aan de enige echte <strong
         >Ten miles (16km)</strong
-      > of het even <em>stoere 8km</em> parkoers.
+      > of het <em>8km</em> parkoers.
     </p>
     <p>
       ⚠️ Ook <em>wandelaars hebben de mogelijkheid</em> om mee te doen aan de <em
@@ -98,6 +109,9 @@ import Layout from "../layouts/Layout.astro";
       Duitse hits en veel ambiance!
     </p>
     <p>
+      Voor de liefhebbers zal er mogelijkheid zijn om te camperen op onze <strong>campingweide</strong>. Meer info hierover volgt.
+    </p>
+    <p>
       <a href="/tickets" id="cta">
         <button class="primary"> Bestel tickets!</button>
       </a>
@@ -107,6 +121,7 @@ import Layout from "../layouts/Layout.astro";
 <style>
   #schedule {
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+    margin-bottom: var(--spacing-400);
   }
 
   #timeline {
@@ -116,12 +131,21 @@ import Layout from "../layouts/Layout.astro";
   #schedule .slot {
     display: flex;
     flex-direction: column;
+    padding-block: var(--spacing-300);
+
+    &:first-of-type {
+      padding-top: 0;
+    }
+
+    &:last-of-type {
+      padding-bottom: 0;
+    }
   }
 
   #schedule .slot time {
-    background-color: var(--primary);
-    line-height: 1.5;
-    font-size: calc(var(--unit-2) / 1.2);
+    background-color: var(--tenmiles-500);
+    line-height: 1.66;
+    font-size: var(--font-300);
     text-transform: uppercase;
     font-family: var(--heading-font);
     font-weight: 600;
@@ -132,16 +156,17 @@ import Layout from "../layouts/Layout.astro";
 
   #schedule .slot h3 {
     text-align: center;
-    padding: var(--unit) 0;
+    padding: var(--font-200) 0;
   }
 
   #schedule .slot p {
     text-align: center;
+    margin-top: var(--spacing-100);
   }
 
   img {
-    width: 80%;
-    object-fit: cover;
+    width: 100%;
+    object-fit: contain;
     align-self: center;
   }
 
@@ -155,7 +180,7 @@ import Layout from "../layouts/Layout.astro";
     flex: 1;
     flex-basis: 0;
     width: initial;
-    max-width: calc(50% - var(--unit-2));
+    max-width: calc(50% - var(--spacing-300));
     height: auto;
   }
 
@@ -165,21 +190,22 @@ import Layout from "../layouts/Layout.astro";
     margin: 0;
   }
 
-  @media screen and (min-width: 960px) {
+  @media screen and (min-width: 768px) {
     #schedule {
-      margin: var(--unit-3) auto;
+      margin: var(--spacing-400) auto;
       display: grid;
       grid-template-columns: 1fr auto 1fr; /* Three columns */
-      grid-column-gap: calc(var(--unit) / 2);
+      grid-column-gap: calc(var(--spacing-400) / 2);
+      padding-bottom: var(--spacing-300);
     }
 
     #timeline {
-      background-color: var(--primary);
+      background-color: var(--tenmiles-500);
       width: 1px;
       grid-column-start: 2;
       grid-column-end: 2;
       grid-row-start: 1;
-      grid-row-end: 5;
+      grid-row-end: 6;
       justify-self: center;
       display: block;
     }
@@ -207,12 +233,17 @@ import Layout from "../layouts/Layout.astro";
       grid-column: 3;
       grid-row: 4;
     }
+
+    #schedule .slot:nth-child(5) {
+      grid-column: 1;
+      grid-row: 5;
+    }
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 768px) {
     #schedule {
-      margin: var(--unit-3) auto;
-      max-width: 1200px;
+      margin: var(--spacing-400) auto;
+      max-width: 768px;
     }
   }
 
@@ -224,7 +255,7 @@ import Layout from "../layouts/Layout.astro";
   #cta button {
     text-transform: uppercase;
     font-size: var(--unit-2);
-    padding: var(--unit);
+    padding: var(--font-200);
     margin: var(--unit-4) 0;
   }
 </style>

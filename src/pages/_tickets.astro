@@ -32,7 +32,7 @@ import TicketForm from "../components/TicketForm.jsx";
 
   #food li {
     flex: 1;
-    margin-right: calc(var(--unit) / 3);
+    margin-right: calc(var(--font-200) / 3);
   }
 
   #food li strong {
@@ -42,7 +42,7 @@ import TicketForm from "../components/TicketForm.jsx";
 
   #food li:last-child {
     margin-right: 0;
-    margin-left: calc(var(--unit) / 3);
+    margin-left: calc(var(--font-200) / 3);
   }
 
   #food li img {
@@ -65,19 +65,19 @@ import TicketForm from "../components/TicketForm.jsx";
   }
 
   .description-icon {
-    width: calc(var(--unit) * 1.5);
+    width: calc(var(--font-200) * 1.5);
     transform: translateY(6px);
     color: var(--warning);
-    margin-right: calc(var(--unit) / 4);
+    margin-right: calc(var(--font-200) / 4);
   }
 
   #alert-extra-info-tickets {
     background-color: var(--grey);
-    padding: calc(var(--unit) / 2);
+    padding: calc(var(--font-200) / 2);
     border-radius: var(--radius);
     font-family: var(--heading-font);
-    line-height: calc(var(--unit) * 2);
-    font-size: var(--unit);
+    line-height: calc(var(--font-200) * 2);
+    font-size: var(--font-200);
   }
 
   #ticket-form {
@@ -121,7 +121,7 @@ import TicketForm from "../components/TicketForm.jsx";
   #add-ticket button svg {
     width: 2rem;
     height: 2rem;
-    margin-left: calc(var(--unit) / 2);
+    margin-left: calc(var(--font-200) / 2);
   }
 
   #add-ticket .items {
@@ -138,8 +138,8 @@ import TicketForm from "../components/TicketForm.jsx";
     text-decoration: none;
     border: 1px solid var(--primary-border);
     border-top: none;
-    padding: calc(var(--unit) / 2);
-    background-color: var(--primary);
+    padding: calc(var(--font-200) / 2);
+    background-color: var(--tenmiles-500);
     color: var(--white);
     font-family: var(--heading-font);
     text-transform: uppercase;
@@ -165,8 +165,8 @@ import TicketForm from "../components/TicketForm.jsx";
   summary {
     border-bottom: 1px solid var(--dark-border);
     border-top: 1px solid var(--dark-border);
-    padding: calc(var(--unit) / 2);
-    margin: var(--unit) 0;
+    padding: calc(var(--font-200) / 2);
+    margin: var(--font-200) 0;
   }
 
   summary h4 {
@@ -178,17 +178,17 @@ import TicketForm from "../components/TicketForm.jsx";
 
   summary ul {
     list-style-type: square;
-    margin: calc(var(--unit) / 2) 0;
-    padding-left: var(--unit);
+    margin: calc(var(--font-200) / 2) 0;
+    padding-left: var(--font-200);
   }
 
   #ticket-form strong {
     background-color: var(--dark);
     color: var(--white);
-    padding: calc(var(--unit) / 4) calc(var(--unit) / 2);
+    padding: calc(var(--font-200) / 4) calc(var(--font-200) / 2);
     border-radius: var(--radius);
     display: inline-block;
-    margin-left: calc(var(--unit) / 2);
+    margin-left: calc(var(--font-200) / 2);
     line-height: 2;
     white-space: nowrap;
     user-select: none;
@@ -196,7 +196,7 @@ import TicketForm from "../components/TicketForm.jsx";
 
   @media screen and (min-width: 960px) {
     #ticket-form strong {
-      margin-left: var(--unit);
+      margin-left: var(--font-200);
     }
   }
 
@@ -216,15 +216,15 @@ import TicketForm from "../components/TicketForm.jsx";
 
   .contact {
     background-color: var(--light-primary);
-    margin-bottom: var(--unit);
+    margin-bottom: var(--font-200);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: auto 1fr 1fr 1fr;
-    grid-column-gap: calc(var(--unit) / 2);
-    grid-row-gap: calc(var(--unit) / 2);
-    border: 1px solid var(--primary);
+    grid-column-gap: calc(var(--font-200) / 2);
+    grid-row-gap: calc(var(--font-200) / 2);
+    border: 1px solid var(--tenmiles-500);
     border-radius: var(--radius);
-    padding: calc(var(--unit) / 2);
+    padding: calc(var(--font-200) / 2);
   }
 
   .contact h4 {
@@ -244,15 +244,15 @@ import TicketForm from "../components/TicketForm.jsx";
   }
 
   .ticket {
-    border: 1px solid var(--primary);
-    margin: var(--unit) 0;
-    padding: calc(var(--unit) / 3);
+    border: 1px solid var(--tenmiles-500);
+    margin: var(--font-200) 0;
+    padding: calc(var(--font-200) / 3);
     border-radius: var(--radius);
     background-color: var(--light-primary);
   }
 
   .ticket .heading {
-    padding: calc(var(--unit) / 2);
+    padding: calc(var(--font-200) / 2);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -260,8 +260,8 @@ import TicketForm from "../components/TicketForm.jsx";
 
   .ticket .heading h3 {
     padding: 0;
-    margin: 0 calc(var(--unit) / 2);
-    font-size: var(--unit);
+    margin: 0 calc(var(--font-200) / 2);
+    font-size: var(--font-200);
     text-transform: uppercase;
     flex: 1;
   }
@@ -292,7 +292,7 @@ import TicketForm from "../components/TicketForm.jsx";
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    padding: calc(var(--unit) / 2);
+    padding: calc(var(--font-200) / 2);
   }
 
   #ticket-form .ticket .heading strong.plus {
@@ -322,12 +322,12 @@ import TicketForm from "../components/TicketForm.jsx";
 
   .ticket .body {
     border-top: 1px solid var(--trans-dark);
-    margin-top: calc(var(--unit) / 2);
-    padding-top: calc(var(--unit) / 2);
+    margin-top: calc(var(--font-200) / 2);
+    padding-top: calc(var(--font-200) / 2);
   }
 
   .ticket .body > div {
-    padding: calc(var(--unit) / 2);
+    padding: calc(var(--font-200) / 2);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: 1fr;
@@ -358,8 +358,8 @@ import TicketForm from "../components/TicketForm.jsx";
   input {
     border-radius: var(--radius);
     border: 2px solid var(--grey);
-    font-size: var(--unit);
-    padding: calc(var(--unit) / 2) calc(var(--unit) / 3);
+    font-size: var(--font-200);
+    padding: calc(var(--font-200) / 2) calc(var(--font-200) / 3);
     box-sizing: border-box;
   }
 
@@ -390,7 +390,7 @@ import TicketForm from "../components/TicketForm.jsx";
     border-bottom: 2px solid var(--grey);
     display: inline-block;
     font-family: var(--heading-font);
-    padding: calc(var(--unit) / 2) var(--unit);
+    padding: calc(var(--font-200) / 2) var(--font-200);
     text-align: center;
     color: var(--dark);
     text-transform: uppercase;
@@ -414,7 +414,7 @@ import TicketForm from "../components/TicketForm.jsx";
   }
 
   .ticket .body input[type="radio"]:checked + label {
-    box-shadow: var(--white) 0 0 0 0, var(--primary) 0 0 0 2px,
+    box-shadow: var(--white) 0 0 0 0, var(--tenmiles-500) 0 0 0 2px,
       transparent 0 0 0 0;
     border-right: none;
     color: var(--primary-border);
@@ -432,7 +432,7 @@ import TicketForm from "../components/TicketForm.jsx";
     float: right;
     text-transform: uppercase;
     font-size: calc(var(--unit-3) / 2);
-    padding: var(--unit);
+    padding: var(--font-200);
   }
 
   .loading {
@@ -440,26 +440,26 @@ import TicketForm from "../components/TicketForm.jsx";
   }
 
   h2 {
-    margin: var(--unit) 0;
+    margin: var(--font-200) 0;
   }
 
   #form-errors {
     background-color: var(--danger);
     border: 1px solid var(--danger-border);
     border-radius: var(--radius);
-    padding: 0 var(--unit);
+    padding: 0 var(--font-200);
     color: var(--white);
-    margin-bottom: var(--unit);
+    margin-bottom: var(--font-200);
   }
 
   #form-errors p {
     margin: 0;
-    padding: calc(var(--unit) / 2) 0;
+    padding: calc(var(--font-200) / 2) 0;
   }
 
   #error {
     background-color: var(--danger-hover);
-    padding: var(--unit);
+    padding: var(--font-200);
     color: var(--white);
     margin-top: var(--unit-4);
   }
@@ -478,7 +478,7 @@ import TicketForm from "../components/TicketForm.jsx";
 
   #turnstile-wrapper em {
     display: block;
-    margin-bottom: var(--unit);
+    margin-bottom: var(--font-200);
   }
 
   @media screen and (min-width: 960px) {
@@ -489,7 +489,7 @@ import TicketForm from "../components/TicketForm.jsx";
     }
 
     #turnstile-wrapper em {
-      margin-right: calc(var(--unit) / 2);
+      margin-right: calc(var(--font-200) / 2);
     }
 
     #ticket-form {
@@ -503,16 +503,16 @@ import TicketForm from "../components/TicketForm.jsx";
 
     #ticket-form summary {
       margin-top: 0;
-      margin-left: var(--unit);
+      margin-left: var(--font-200);
       margin-bottom: 0;
-      padding-left: var(--unit);
+      padding-left: var(--font-200);
       padding-bottom: 0;
       padding-top: 0;
       border: none;
       border-left: 1px solid var(--dark-border);
       align-self: flex-start;
       position: sticky;
-      top: var(--unit);
+      top: var(--font-200);
     }
 
     #ticket-form summary ul {

@@ -6,7 +6,7 @@ const currentPath = pathname.replaceAll("/", "");
 <nav>
   <div>
     <a href="/" class={currentPath === "" ? "active" : ""}> Home</a>
-    <!--<a href="/info" class={currentPath === "info" ? "active" : ""}>Info</a>-->
+    <a href="/info" class={currentPath === "info" ? "active" : ""}>Info</a>
 
     <!-- <a href="/tickets" class={currentPath === "tickets" ? "active" : ""} -->
     <!--  >Tickets</a-->
@@ -29,7 +29,7 @@ const currentPath = pathname.replaceAll("/", "");
 <style>
   nav {
     --button-size: 20px;
-    --item-height: var(--spacing-500);
+    --item-height: 40px;
 
     background-color: var(--dark-900);
     display: flex;
@@ -44,14 +44,14 @@ const currentPath = pathname.replaceAll("/", "");
   }
 
   a {
-    display: block;
+    display: none;
     line-height: var(--item-height);
     font-size: var(--font-300);
     font-family: var(--heading-font);
     text-transform: uppercase;
     color: var(--white);
     text-decoration: none;
-    padding: 0 var(--spacing-100);
+    padding: 0 var(--spacing-300);
     transition:
       background-color 200ms,
       width 200ms;
@@ -68,11 +68,16 @@ const currentPath = pathname.replaceAll("/", "");
 
   a.active {
     background-color: var(--tenmiles-500);
+    display: block;
   }
 
   nav.open {
     & div {
-        max-height: calc(2 * var(--item-height));
+        max-height: calc(3 * var(--item-height));
+
+        & a {
+          display: block;
+        }
     }
   }
 
@@ -115,16 +120,22 @@ const currentPath = pathname.replaceAll("/", "");
 
         & a {
             padding-inline: var(--spacing-200);
+            display: block;
         }
     }
   }
 </style>
 <script>
-  const btn = document.querySelector("nav > button");
+  function wireNavHandler() {
+    const btn = document.querySelector("nav > button");
   if (btn) {
     const nav = document.querySelector("nav");
     btn.addEventListener("click", () => {
       nav.classList.toggle("open");
     });
   }
+  }
+
+  document.addEventListener("DOMContentLoaded", wireNavHandler);
+  document.addEventListener('astro:after-swap', wireNavHandler);
 </script>

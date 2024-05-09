@@ -70,8 +70,8 @@ body {
 
 main {
   flex: 1;
-  margin: 0 var(--unit);
-  padding: var(--unit) 0;
+  margin: 0 var(--font-200);
+  padding: var(--font-200) 0;
   max-width: var(--container);
 }
 
@@ -160,7 +160,7 @@ button:before {
 
 .btn.primary,
 button.primary {
-  background-color: var(--primary);
+  background-color: var(--tenmiles-500);
   border-color: var(--primary-border);
   color: var(--white);
 }
@@ -192,8 +192,8 @@ button.primary:focus {
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid var(--primary);
-  border-color: var(--primary) transparent var(--primary) transparent;
+  border: 6px solid var(--tenmiles-500);
+  border-color: var(--tenmiles-500) transparent var(--tenmiles-500) transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 
@@ -209,26 +209,26 @@ button.primary:focus {
 form {
   display: flex;
   flex-direction: column;
-  margin-top: var(--unit);
+  margin-top: var(--font-200);
   min-width: 400px;
 
   & input,
   & select,
   .radio-container {
     box-sizing: border-box;
-    margin: calc(var(--unit) / 3) 0;
+    margin: calc(var(--font-200) / 3) 0;
   }
 
   & input,
   & select {
     border-radius: var(--radius);
     border: 2px solid var(--grey);
-    font-size: var(--unit);
-    padding: calc(var(--unit) / 2) calc(var(--unit) / 3);
+    font-size: var(--font-200);
+    padding: calc(var(--font-200) / 2) calc(var(--font-200) / 3);
   }
 
   #key {
-    background-color: var(--primary);
+    background-color: var(--tenmiles-500);
     color: var(--white);
     text-transform: uppercase;
 
@@ -240,7 +240,7 @@ form {
   & select {
     & option {
       text-align: center;
-      padding: var(--unit);
+      padding: var(--font-200);
       display: block;
     }
   }
@@ -267,7 +267,7 @@ form {
       border-bottom: 2px solid var(--grey);
       display: inline-block;
       font-family: var(--heading-font);
-      padding: calc(var(--unit) / 2) var(--unit);
+      padding: calc(var(--font-200) / 2) var(--font-200);
       text-align: center;
       color: var(--dark);
       text-transform: uppercase;
@@ -293,7 +293,7 @@ form {
     & input[type="radio"]:checked + label {
       box-shadow:
         var(--white) 0 0 0 0,
-        var(--primary) 0 0 0 2px,
+        var(--tenmiles-500) 0 0 0 2px,
         transparent 0 0 0 0;
       border-right: none;
       color: var(--primary-border);
