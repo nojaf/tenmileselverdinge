@@ -83,3 +83,69 @@ button.primary:focus {
 }
 
 */
+
+import styled from "@emotion/styled";
+
+const Button = ({ children, primary = false, large = false, ...props }) => {
+  let color = "var(--dark-900)";
+  let backgroundColor = "var(--tenmiles-50)";
+  let backgroundColorHover = "var(--tenmiles-100)";
+  let backgroundColorActive = "var(--tenmiles-200)";
+  let fontSize = "var(--font-50);";
+  let padding = "var(--spacing-100) var(--spacing-300)";
+
+  if (primary) {
+    color = "var(--white)";
+    backgroundColor = "var(--tenmiles-500)";
+    backgroundColorHover = "var(--tenmiles-600)";
+    backgroundColorActive = "var(--tenmiles-700)";
+  }
+
+  if (large) {
+    fontSize = "var(--font-500);";
+    padding = "var(--spacing-300) var(--spacing-500)";
+  }
+
+  const StyledButton = styled.button`
+    text-decoration: none;
+    appearance: none;
+    border: 1px solid var(--dark-200);
+    border-radius: var(--radius);
+    box-shadow:
+      var(--dark-50) 0 1px 0,
+      rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    color: ${color};
+    background-color: ${backgroundColor};
+    cursor: pointer;
+    display: inline-block;
+    font-family: var(--heading-font);
+    font-size: ${fontSize};
+    font-weight: 600;
+    line-height: 20px;
+    list-style: none;
+    padding: ${padding};
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    transition-duration: 0.1s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+    text-transform: uppercase;
+
+    &:hover {
+      background-color: ${backgroundColorHover};
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      background-color: ${backgroundColorActive};
+    }
+  `;
+
+  return <StyledButton {...props}>{children}</StyledButton>;
+};
+
+export default Button;

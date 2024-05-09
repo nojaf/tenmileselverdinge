@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Not found">
-  <main id="not-found">
+  <main class="container">
     <h1>Ow zekers, deze pagina hebben we niet.</h1>
     <picture>
       <source
@@ -21,9 +21,8 @@ import Layout from "../layouts/Layout.astro";
   </main>
 </Layout>
 <style>
-  #not-found {
-    max-width: var(--container);
-    padding: var(--unit-2);
+  main {
+    text-align: center;
   }
 
   h1 {
