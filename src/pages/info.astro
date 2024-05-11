@@ -120,6 +120,10 @@ import oktoberfest from "../images/Oktoberfest.jpg"
   </main>
 </Layout>
 <style>
+  h2 {
+    margin-bottom: var(--spacing-500);
+  }
+
   #schedule {
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
     margin-bottom: var(--spacing-400);
@@ -146,7 +150,7 @@ import oktoberfest from "../images/Oktoberfest.jpg"
   #schedule .slot time {
     background-color: var(--tenmiles-500);
     line-height: 1.66;
-    font-size: var(--font-300);
+    font-size: var(--font-600);
     text-transform: uppercase;
     font-family: var(--heading-font);
     font-weight: 600;
@@ -157,12 +161,14 @@ import oktoberfest from "../images/Oktoberfest.jpg"
 
   #schedule .slot h3 {
     text-align: center;
-    padding: var(--font-200) 0;
+    padding: var(--spacing-300) 0;
+    font-size: var(--font-500);
   }
 
   #schedule .slot p {
     text-align: center;
-    margin-top: var(--spacing-100);
+    margin-top: var(--spacing-200);
+    font-size: var(--font-400);
   }
 
   img {
@@ -245,6 +251,18 @@ import oktoberfest from "../images/Oktoberfest.jpg"
     #schedule {
       margin: var(--spacing-400) auto;
       max-width: 768px;
+    }
+  }
+
+  @media screen and (min-width: 960px) {
+    #schedule {
+      max-width: 960px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    #schedule {
+      max-width: 1024px;
     }
   }
 

@@ -7,10 +7,7 @@ const currentPath = pathname.replaceAll("/", "");
   <div>
     <a href="/" class={currentPath === "" ? "active" : ""}> Home</a>
     <a href="/info" class={currentPath === "info" ? "active" : ""}>Info</a>
-
-    <!-- <a href="/tickets" class={currentPath === "tickets" ? "active" : ""} -->
-    <!--  >Tickets</a-->
-    <!--&gt;-->
+    <a href="/tickets" class={currentPath === "tickets" ? "active" : ""}>Tickets</a>
     <a href="/trail" class={currentPath === "trail" ? "active" : ""}>Parcours</a
     >
     <!--<a href="/results" class={currentPath === "results" ? "active" : ""}>-->
@@ -22,14 +19,15 @@ const currentPath = pathname.replaceAll("/", "");
     <iconify-icon
       id="mobile-toggle"
       icon="codicon:three-bars"
-      width="20"
-      height="20"></iconify-icon>
+      width="30"
+      height="30"></iconify-icon>
   </button>
 </nav>
 <style>
   nav {
-    --button-size: 20px;
-    --item-height: 40px;
+    --button-size: 30px;
+    --item-height: 60px;
+    --menu-items: 4;
 
     background-color: var(--dark-900);
     display: flex;
@@ -46,8 +44,9 @@ const currentPath = pathname.replaceAll("/", "");
   a {
     display: none;
     line-height: var(--item-height);
-    font-size: var(--font-300);
+    font-size: var(--font-500);
     font-family: var(--heading-font);
+    font-weight: 400;
     text-transform: uppercase;
     color: var(--white);
     text-decoration: none;
@@ -73,7 +72,7 @@ const currentPath = pathname.replaceAll("/", "");
 
   nav.open {
     & div {
-        max-height: calc(3 * var(--item-height));
+        max-height: calc(var(--menu-items) * var(--item-height));
 
         & a {
           display: block;
@@ -94,7 +93,7 @@ const currentPath = pathname.replaceAll("/", "");
     width: var(--buton-size);
     display: flex;
     justify-content: center;
-    margin-right: var(--spacing-100);
+    margin-right: calc((var(--item-height) - var(--button-size)) / 2);
     margin-top: calc((var(--item-height) - var(--button-size)) / 2);
   }
 

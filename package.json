@@ -23,14 +23,12 @@
     "@types/react-dom": "^18.3.0",
     "astro": "^4.8.2",
     "firebase": "^10.11.1",
-    "i": "^0.3.7",
     "mapbox-gl": "^3.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-firehooks": "^4.1.0",
     "react-hook-form": "^7.51.4",
     "react-map-gl": "^7.1.7",
-    "rescript": "11.1.0",
     "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
@@ -40,7 +38,8 @@
     "autoprefixer": "^10.4.19",
     "postcss-nested": "^6.0.1",
     "prettier": "^3.2.5",
-    "prettier-plugin-astro": "^0.13.0"
+    "prettier-plugin-astro": "^0.13.0",
+    "rescript": "11.1.0"
   },
   "trustedDependencies": [
     "sharp"

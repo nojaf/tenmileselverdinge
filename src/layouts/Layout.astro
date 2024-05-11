@@ -21,11 +21,11 @@ import Navigation from "../components/Navigation.astro";
     <meta name="revisit-after" content="7 days" />
     <meta name="og:title" content={`${title} | Ten miles Elverdinge`} />
     <title>{title} | Ten miles Elverdinge</title>
-    <ViewTransitions />
+    <!-- <ViewTransitions /> -->
     <link rel="icon" href="/favicon.ico?v3" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
-    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -67,7 +67,7 @@ import Navigation from "../components/Navigation.astro";
 
         --line-height: 1.5;
         --heading-line-height: 1.25;
-        --radius: 6px;
+        --radius: 4px;
 
         --heading-font: "Barlow", sans-serif;
         --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
@@ -99,6 +99,9 @@ import Navigation from "../components/Navigation.astro";
         --dark-950: #262626;
 
         --white: white;
+        --danger: #d24d57;
+        --danger-hover: #e18a91;
+        --danger-border: #a82a34;
 
         --scrollbar-track-background: #222222;
         --scrollbar-track-border: #4a4a4a;
@@ -212,28 +215,24 @@ import Navigation from "../components/Navigation.astro";
       }
 
       main {
-        font-size: var(--font-200);
+        font-size: var(--font-400);
         padding-block: var(--spacing-300);
 
         & h1 {
-          font-size: var(--font-600);
+          font-size: var(--font-800);
           text-transform: uppercase;
           margin-bottom: var(--spacing-200);
         }
 
         & h2 {
-          font-size: var(--font-300);
+          font-size: var(--font-600);
           line-height: var(--heading-line-height);
           margin-top: var(--spacing-500);
           margin-bottom: var(--spacing-300);
         }
 
-        & h2:first-of-type {
-          margin-top: 0;
-        }
-
         & h3 {
-          font-size: var(--font-200);
+          font-size: var(--font-400);
           line-height: var(--heading-line-height);
           margin-top: var(--spacing-400);
           margin-bottom: var(--spacing-300);
@@ -258,7 +257,7 @@ import Navigation from "../components/Navigation.astro";
         p,
         ul,
         ol {
-          margin-bottom: var(--spacing-300);
+          margin-bottom: var(--spacing-400);
         }
       }
     </style>

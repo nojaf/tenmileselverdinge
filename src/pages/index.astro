@@ -45,7 +45,7 @@ import Layout from "../layouts/Layout.astro";
   }
 
   h1, h2 {
-    font-size: var(--font-700);
+    font-size: var(--font-600);
   }
   
   h1 {
@@ -61,17 +61,22 @@ import Layout from "../layouts/Layout.astro";
   @media screen and (min-width: 400px) {
     h1,
     h2 {
-      font-size: var(--font-700);
+      font-size: var(--font-800);
     }
   }
 
   @media screen and (min-width: 768px) {
     h1 {
-      font-size: var(--font-900);
+      font-size: var(--font-950);
     }
 
     h2 {
-      font-size: var(--font-800);
+      font-size: var(--font-900);
+    }
+
+    h3 {
+      margin-top: var(--spacing-400);
+      font-size: var(--font-700);
     }
   }
   

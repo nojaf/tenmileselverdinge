@@ -1,9 +1,12 @@
 {
   "name": "tenmileselverdinge",
-  "sources": {
-    "dir": "src",
-    "subdirs": true
-  },
+  "sources": [
+    "../tenmileselverdinge-tickets/functions/shared",
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
   "package-specs": {
     "module": "esmodule",
     "in-source": true

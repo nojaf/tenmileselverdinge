@@ -86,19 +86,35 @@ button.primary:focus {
 
 import styled from "@emotion/styled";
 
-const Button = ({ children, primary = false, large = false, ...props }) => {
+const Button = ({
+  children,
+  primary = false,
+  danger = false,
+  large = false,
+  ...props
+}) => {
   let color = "var(--dark-900)";
   let backgroundColor = "var(--tenmiles-50)";
   let backgroundColorHover = "var(--tenmiles-100)";
   let backgroundColorActive = "var(--tenmiles-200)";
-  let fontSize = "var(--font-50);";
-  let padding = "var(--spacing-100) var(--spacing-300)";
+  let fontSize = "var(--font-300);";
+  let padding = "var(--spacing-100) var(--spacing-200)";
+  let borderColor = "var(--dark-200)";
 
   if (primary) {
     color = "var(--white)";
     backgroundColor = "var(--tenmiles-500)";
     backgroundColorHover = "var(--tenmiles-600)";
     backgroundColorActive = "var(--tenmiles-700)";
+    borderColor = "var(--tenmiles-600)";
+  }
+
+  if (danger) {
+    backgroundColor = "var(--danger)";
+    color = "var(--white)";
+    backgroundColorHover = "var(--danger-hover)";
+    backgroundColorActive = "var(--danger-border);";
+    borderColor = "var(--danger-border);";
   }
 
   if (large) {
@@ -109,10 +125,10 @@ const Button = ({ children, primary = false, large = false, ...props }) => {
   const StyledButton = styled.button`
     text-decoration: none;
     appearance: none;
-    border: 1px solid var(--dark-200);
+    border: 1px solid ${borderColor};
     border-radius: var(--radius);
     box-shadow:
-      var(--dark-50) 0 1px 0,
+      transparent 0 0px 0,
       rgba(255, 255, 255, 0.25) 0 1px 0 inset;
     color: ${color};
     background-color: ${backgroundColor};
@@ -137,7 +153,6 @@ const Button = ({ children, primary = false, large = false, ...props }) => {
 
     &:hover {
       background-color: ${backgroundColorHover};
-      transform: translateY(-1px);
     }
 
     &:active {
@@ -148,6 +163,13 @@ const Button = ({ children, primary = false, large = false, ...props }) => {
 
     &:focus {
       outline: 1px transparent;
+    }
+
+    &:disabled {
+      background-color: var(--dark-200);
+      color: var(--dark-50);
+      opacity: 0.25;
+      cursor: not-allowed;
     }
   `;
 

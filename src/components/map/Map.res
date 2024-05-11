@@ -33,8 +33,7 @@ module ReactMapGL = {
     @module("react-map-gl") @react.component
     external make: (
       ~id: string,
-      @as("type")
-      ~type_: string,
+      @as("type") ~type_: string,
       ~source: string,
       ~layout: layerLayout,
       ~paint: layerPaint,
@@ -68,8 +67,7 @@ module ReactMapGL = {
     @module("react-map-gl") @react.component
     external make: (
       ~id: string,
-      @as("type")
-      ~type_: string,
+      @as("type") ~type_: string,
       ~data: sourceData,
       ~children: React.element,
     ) => React.element = "Source"
