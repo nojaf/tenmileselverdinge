@@ -1,17 +1,27 @@
 open Interopt
 open Domain
 
+type propsDef = {
+  disabled: bool,
+  addRunner: unit => unit,
+  addWalker: unit => unit,
+  addAdultSchnitzel: unit => unit,
+  addAdultTartiflette: unit => unit,
+  addChildSchnitzel: unit => unit,
+  addChildTartiflette: unit => unit,
+}
+
 let memo = React.memoCustomCompareProps(_, (p1, p2) => p1.disabled == p2.disabled)
 
-@react.component
-and make = memo((
-  ~disabled: bool,
-  ~addRunner: unit => unit,
-  ~addWalker: unit => unit,
-  ~addAdultSchnitzel: unit => unit,
-  ~addAdultTartiflette: unit => unit,
-  ~addChildSchnitzel: unit => unit,
-  ~addChildTartiflette: unit => unit,
+@react.component(: propsDef)
+let make = memo((
+  ~disabled,
+  ~addRunner,
+  ~addWalker,
+  ~addAdultSchnitzel,
+  ~addAdultTartiflette,
+  ~addChildSchnitzel,
+  ~addChildTartiflette,
 ) => {
   <div id="tickets">
     <h2> {str("Bestelling")} </h2>

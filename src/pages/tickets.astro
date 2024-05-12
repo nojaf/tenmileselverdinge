@@ -17,6 +17,10 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
   </main>
 </Layout>
 <style is:global>
+  #cf-turnstile {
+    overflow: hidden;
+  }
+
   input[type="text"],
   input[type="email"],
   input[type="tel"],
@@ -36,8 +40,9 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
     }
   }
 
-  input:not(:focus):invalid:not(:placeholder-shown), .invalid-form input:invalid {
-    border: 2px solid var(--danger-border) !important;
+  input:not(:focus):invalid:not(:placeholder-shown),
+  .invalid-form input:invalid {
+    border: 2px solid var(--danger) !important;
   }
 
   label:has(+ input:not(:focus):invalid:not(:placeholder-shown))::after {
@@ -79,7 +84,8 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
   #description,
   #tickets,
   #detail,
-  #payment {
+  #payment,
+  #error {
     margin-block: var(--spacing-700);
   }
 
@@ -202,9 +208,114 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
   }
 
   #payment {
+    h3 {
+      font-size: var(--font-600);
+      text-transform: uppercase;
+
+      & strong {
+        font-weight: 900;
+      }
+    }
+
     & button {
       float: right;
     }
+  }
+
+  #overview {
+    & ul {
+      list-style-type: none;
+      padding: 0;
+
+      & li {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: 1fr auto;
+        grid-row-gap: var(--spacing-50);
+        margin-block: var(--spacing-300);
+        border-bottom: 1px solid var(--dark-50);
+        padding-bottom: var(--spacing-200);
+
+        & span {
+          font-size: var(--font-300);
+          grid-row: 1;
+          grid-column: 1;
+        }
+
+        & strong {
+          grid-row: 1;
+          grid-column: 2;
+        }
+
+        & .actions {
+          grid-row: 2;
+          grid-column: 1;
+          justify-self: flex-start;
+
+          & button:first-of-type {
+            background-color: var(--tenmiles-500);
+            border: 1px solid var(--tenmiles-600);
+
+            &:hover {
+              background-color: var(--tenmiles-400);
+            }
+          }
+        }
+
+        > button {
+          grid-row: 2;
+          grid-column: 2;
+        }
+
+        & button {
+          display: flex;
+          margin-inline: var(--spacing-50);
+          padding: 4px;
+          color: var(--white);
+          border-radius: var(--radius);
+          border: 1px solid var(--danger-border);
+          background-color: var(--danger);
+          cursor: pointer;
+
+          &:hover {
+            background-color: var(--danger-hover);
+          }
+
+          & iconify-icon {
+            height: 24px;
+            width: 24px;
+            margin: auto;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 400px) {
+    #overview {
+      & ul li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap:var(--spacing-400);
+
+        &.ticket::before {
+          content: " ";
+          width: 84px;
+        }
+
+        & span {
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  #error {
+    background-color: var(--danger);
+    padding: var(--spacing-300);
+    color: var(--white);
+    border-radius: var(--radius);
   }
 
   @media screen and (min-width: 768px) {
@@ -215,15 +326,21 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
       column-gap: var(--spacing-600);
     }
 
-    #info {
+    #info,
+    #error {
       grid-column: 1;
       grid-row: 1;
+    }
+
+    #error {
+      align-self: start;
     }
 
     #description,
     #tickets,
     #detail,
-    #payment {
+    #payment,
+    #error {
       margin-block: 0;
     }
 

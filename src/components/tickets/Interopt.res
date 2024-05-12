@@ -26,6 +26,16 @@ module Button = {
   ) => React.element = "default"
 }
 
+module Turnstile = {
+  @module("@marsidev/react-turnstile") @react.component
+  external make: (~siteKey: string, ~onSuccess: string => unit) => React.element = "Turnstile"
+}
+
+module Loader = {
+  @module("../Loader.jsx") @react.component
+  external make: unit => React.element = "default"
+}
+
 let str = (v: string) => React.string(v)
 let euro = React.string("€")
 
@@ -41,3 +51,10 @@ external scrollIntoView: (Dom.element, ~scrollIntoViewOptions: scrollIntoViewOpt
   "scrollIntoView"
 
 let isNotEmptyString = (v: string) => v != ""
+
+let isArrayNotEmpty = a => {
+  let l = a->Belt.Array.length
+  l > 0
+}
+
+let not = v => !v
