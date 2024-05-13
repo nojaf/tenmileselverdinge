@@ -34,7 +34,7 @@ let euro = React.string("€")
 
 let getEventValue = e => {
   let target = e->JsxEvent.Form.target
-  (target["value"]: string)->Js.String.trim
+  (target["value"]: string)->String.trim
 }
 
 type scrollIntoViewOptions = {behavior: string}

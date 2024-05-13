@@ -13,7 +13,7 @@ let make = (
   ~submit: unit => unit,
 ) => {
   let (className, setClassName) = React.useState(_ => "")
-  let detailRef = React.useRef(Js.Nullable.null)
+  let detailRef = React.useRef(Nullable.null)
   React.useEffect0(() => {
     switch detailRef.current {
     | Value(node) => scrollIntoView(node, ~scrollIntoViewOptions={behavior: "smooth"})

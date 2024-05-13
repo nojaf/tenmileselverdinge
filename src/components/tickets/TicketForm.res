@@ -241,7 +241,7 @@ let make = () => {
                           UpdateFood(
                             food => {
                               ...food,
-                              adultSchnitzel: Js.Math.max_int(food.adultSchnitzel - 1, 0),
+                              adultSchnitzel: Math.Int.max(food.adultSchnitzel - 1, 0),
                             },
                           ),
                         )
@@ -297,7 +297,7 @@ let make = () => {
                           UpdateFood(
                             food => {
                               ...food,
-                              adultTartiflette: Js.Math.max_int(food.adultTartiflette - 1, 0),
+                              adultTartiflette: Math.Int.max(food.adultTartiflette - 1, 0),
                             },
                           ),
                         )
@@ -351,7 +351,7 @@ let make = () => {
                           UpdateFood(
                             food => {
                               ...food,
-                              childSchnitzel: Js.Math.max_int(food.childSchnitzel - 1, 0),
+                              childSchnitzel: Math.Int.max(food.childSchnitzel - 1, 0),
                             },
                           ),
                         )
@@ -407,7 +407,7 @@ let make = () => {
                           UpdateFood(
                             food => {
                               ...food,
-                              childTartiflette: Js.Math.max_int(food.childTartiflette - 1, 0),
+                              childTartiflette: Math.Int.max(food.childTartiflette - 1, 0),
                             },
                           ),
                         )
