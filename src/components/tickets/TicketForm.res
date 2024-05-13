@@ -71,7 +71,7 @@ let update = (model: model, msg: msg) => {
   | SubmitSport => {
       let tickets = switch model.currentTicketDetail {
       | None => model.tickets
-      | Some(ticket) => Belt.Array.concat(model.tickets, [ticket])
+      | Some(ticket) => [...model.tickets, ticket]
       }
       {...model, tickets, currentTicketDetail: None}
     }
@@ -81,7 +81,7 @@ let update = (model: model, msg: msg) => {
 }
 
 let orderTotal = (model: model) => {
-  let sportCost = model.tickets->Belt.Array.reduce(0, (acc, t) => {
+  let sportCost = Array.reduce(model.tickets, 0, (acc, t) => {
     switch t {
     | Runner(_) => prices["runner"] + acc
     | Walker(_) => prices["walker"] + acc
@@ -190,7 +190,7 @@ let make = () => {
           <div id="overview">
             <ul>
               {model.tickets
-              ->Belt.Array.mapWithIndex((idx, ticket) => {
+              ->Array.mapWithIndex((ticket, idx) => {
                 let (price, text) = switch ticket {
                 | Runner(runner) => {
                     let disciplineName = switch runner.race {
@@ -443,8 +443,7 @@ let make = () => {
           </div>
           {switch model.state {
           | Error | Loading => React.null
-          | Active =>
-            <Button primary={Some(true)} type_={Some("submit")}> {str("Betalen!")} </Button>
+          | Active => <Button primary={true} type_={"submit"}> {str("Betalen!")} </Button>
           }}
         </div>
       }}

@@ -5,25 +5,18 @@ module ButtonGroup = {
   }
 
   @module("../ButtonGroup.jsx") @react.component
-  external make: (
-    ~options: array<item>,
-    ~activeOption: string,
-    ~required: option<bool>=?,
-  ) => React.element = "default"
+  external make: (~options: array<item>, ~activeOption: string) => React.element = "default"
 }
 
 module Button = {
-  @module("../Button.jsx") @react.component
-  external make: (
-    ~className: option<string>=?,
-    ~children: React.element,
-    ~type_: option<string>=?,
-    ~primary: option<bool>=?,
-    ~danger: option<bool>=?,
-    ~large: option<bool>=?,
-    ~onClick: option<JsxEvent.Mouse.t => unit>=?,
-    ~disabled: option<bool>=?,
-  ) => React.element = "default"
+  type buttonProps = {
+    ...JsxDOM.domProps,
+    danger?: bool,
+    primary?: bool,
+  }
+
+  @module("../Button.jsx") @react.component(: buttonProps)
+  external make: buttonProps => React.element = "default"
 }
 
 module Turnstile = {
@@ -53,7 +46,7 @@ external scrollIntoView: (Dom.element, ~scrollIntoViewOptions: scrollIntoViewOpt
 let isNotEmptyString = (v: string) => v != ""
 
 let isArrayNotEmpty = a => {
-  let l = a->Belt.Array.length
+  let l = a->Array.length
   l > 0
 }
 

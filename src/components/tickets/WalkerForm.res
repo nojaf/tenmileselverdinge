@@ -58,16 +58,14 @@ let make = (
     </div>
     <div id="actions">
       <Button
-        danger={Some(true)}
-        onClick={Some(
-          ev => {
-            JsxEvent.Mouse.preventDefault(ev)
-            cancel()
-          },
-        )}>
+        danger={true}
+        onClick={ev => {
+          JsxEvent.Mouse.preventDefault(ev)
+          cancel()
+        }}>
         {React.string("Annuleer")}
       </Button>
-      <Button primary={Some(true)} type_={Some("submit")} onClick={Some(submitHandler)}>
+      <Button primary={true} type_={"submit"} onClick={submitHandler}>
         {React.string("Bevestig!")}
       </Button>
     </div>

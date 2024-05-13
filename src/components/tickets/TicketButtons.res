@@ -31,52 +31,52 @@ let make = memo((
             hebben we extra informatie nodig.`)}
     </p>
     <Button
-      disabled={Some(disabled)}
-      className={Some("ticket")}
-      onClick={Some(ev => ev->JsxEvent.Mouse.preventDefault->addRunner)}>
+      disabled={disabled}
+      className={"ticket"}
+      onClick={ev => ev->JsxEvent.Mouse.preventDefault->addRunner}>
       <iconify-icon icon="mdi:plus" width="30" height="30" />
       <span> {str("Loopwedstrijd")} </span>
       <strong> {React.int(prices["runner"])} </strong>
     </Button>
     <Button
-      disabled={Some(disabled)}
-      className={Some("ticket")}
-      onClick={Some(ev => ev->JsxEvent.Mouse.preventDefault->addWalker)}>
+      disabled={disabled}
+      className={"ticket"}
+      onClick={ev => ev->JsxEvent.Mouse.preventDefault->addWalker}>
       <iconify-icon icon="mdi:plus" width="30" height="30" />
       <span> {str("Wandeling")} </span>
       <strong> {React.int(prices["walker"])} </strong>
     </Button>
     <Button
-      disabled={Some(disabled)}
-      className={Some("ticket")}
-      onClick={Some(ev => ev->JsxEvent.Mouse.preventDefault->addAdultSchnitzel)}>
+      disabled={disabled}
+      className={"ticket"}
+      onClick={ev => ev->JsxEvent.Mouse.preventDefault->addAdultSchnitzel}>
       <iconify-icon icon="mdi:plus" width="30" height="30" />
       <span> {str("Schnitzel")} </span>
       <small> {str("volwassene")} </small>
       <strong> {React.int(prices["adultSchnitzel"])} </strong>
     </Button>
     <Button
-      disabled={Some(disabled)}
-      className={Some("ticket")}
-      onClick={Some(ev => ev->JsxEvent.Mouse.preventDefault->addAdultTartiflette)}>
+      disabled={disabled}
+      className={"ticket"}
+      onClick={ev => ev->JsxEvent.Mouse.preventDefault->addAdultTartiflette}>
       <iconify-icon icon="mdi:plus" width="30" height="30" />
       <span> {str("Tartiflette")} </span>
       <small> {str("volwassene")} </small>
       <strong> {React.int(prices["adultTartiflette"])} </strong>
     </Button>
     <Button
-      disabled={Some(disabled)}
-      className={Some("ticket")}
-      onClick={Some(ev => ev->JsxEvent.Mouse.preventDefault->addChildSchnitzel)}>
+      disabled={disabled}
+      className={"ticket"}
+      onClick={ev => ev->JsxEvent.Mouse.preventDefault->addChildSchnitzel}>
       <iconify-icon icon="mdi:plus" width="30" height="30" />
       <span> {str("Schnitzel")} </span>
       <small> {str("kind")} </small>
       <strong> {React.int(prices["childSchnitzel"])} </strong>
     </Button>
     <Button
-      disabled={Some(disabled)}
-      className={Some("ticket")}
-      onClick={Some(ev => ev->JsxEvent.Mouse.preventDefault->addChildTartiflette)}>
+      disabled={disabled}
+      className={"ticket"}
+      onClick={ev => ev->JsxEvent.Mouse.preventDefault->addChildTartiflette}>
       <iconify-icon icon="mdi:plus" width="30" height="30" />
       <span> {str("Tartiflette")} </span>
       <small> {str("kind")} </small>
