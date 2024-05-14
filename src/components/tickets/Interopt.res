@@ -43,11 +43,14 @@ type scrollIntoViewOptions = {behavior: string}
 external scrollIntoView: (Dom.element, ~scrollIntoViewOptions: scrollIntoViewOptions) => unit =
   "scrollIntoView"
 
+@send external checkValidity: (Dom.element, unit) => bool = "checkValidity"
+
+@send @scope("classList")
+external addToClassList: (Dom.element, string) => unit = "add"
+
 let isNotEmptyString = (v: string) => v != ""
 
 let isArrayNotEmpty = a => {
   let l = a->Array.length
   l > 0
 }
-
-let not = v => !v

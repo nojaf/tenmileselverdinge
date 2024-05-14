@@ -1,10 +1,6 @@
 open Interopt
 open Domain
 
-let isValid = (walker: walker) => {
-  walker.firstName->isNotEmptyString && walker.lastName->isNotEmptyString
-}
-
 @react.component
 let make = (
   ~walker: walker,
@@ -25,14 +21,18 @@ let make = (
 
   let submitHandler = ev => {
     ev->JsxEvent.Mouse.preventDefault
-    if isValid(walker) {
-      submit()
-    } else {
-      setClassName(_ => "invalid-form")
+    switch detailRef.current {
+    | Nullable.Value(formElement) =>
+      if formElement->checkValidity() {
+        submit()
+      } else {
+        setClassName(_ => "invalid-form")
+      }
+    | _ => setClassName(_ => "invalid-form")
     }
   }
 
-  <div id="detail" ref={ReactDOM.Ref.domRef(detailRef)} className={className}>
+  <form id="detail" ref={ReactDOM.Ref.domRef(detailRef)} className={className}>
     <h3> {React.string("Info wandelaar")} </h3>
     <div>
       <label> {React.string("Voornaam")} </label>
@@ -69,5 +69,5 @@ let make = (
         {React.string("Bevestig!")}
       </Button>
     </div>
-  </div>
+  </form>
 }

@@ -8,7 +8,7 @@
     "build": "bunx --bun astro build",
     "preview": "bunx --bun astro preview",
     "astro": "bunx --bun astro",
-    "format": "prettier --write .",
+    "format": "prettier --write . && rescript format -all",
     "res:build": "rescript",
     "res:clean": "rescript clean",
     "res:dev": "rescript -w"

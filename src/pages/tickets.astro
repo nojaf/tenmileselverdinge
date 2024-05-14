@@ -82,6 +82,8 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
   }
 
   #description,
+  #info,
+  #turnstile,
   #tickets,
   #detail,
   #payment,
@@ -98,6 +100,12 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
     & p:last-of-type {
       margin-bottom: 0;
     }
+  }
+
+  #turnstile.missing {
+    border: 4px solid var(--danger);
+    border-radius: var(--radius);
+    padding: var(--spacing-200);
   }
 
   #tickets {
@@ -209,8 +217,9 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
 
   #payment {
     h3 {
-      font-size: var(--font-600);
+      font-size: var(--font-700);
       text-transform: uppercase;
+      margin-block: var(--spacing-600);
 
       & strong {
         font-weight: 900;
@@ -260,6 +269,15 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
               background-color: var(--tenmiles-400);
             }
           }
+
+          & button:only-child {
+            background-color: var(--edit);
+            border: var(--edit-border);
+
+            &:hover {
+              background-color: var(--edit-hover);
+            }
+          }
         }
 
         > button {
@@ -297,11 +315,11 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap:var(--spacing-400);
+        gap: var(--spacing-400);
 
         &.ticket::before {
           content: " ";
-          width: 84px;
+          width: calc(24px - (var(--spacing-50)));
         }
 
         & span {
@@ -319,7 +337,7 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
   }
 
   @media screen and (min-width: 768px) {
-    form {
+    #form-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-row-gap: var(--spacing-600);
@@ -337,6 +355,8 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
     }
 
     #description,
+    #info,
+    #turnstile,
     #tickets,
     #detail,
     #payment,
@@ -350,8 +370,13 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
       align-self: start;
     }
 
-    #tickets {
+    #turnstile {
+      grid-column: 1;
       grid-row: 2;
+    }
+
+    #tickets {
+      grid-row: 3;
       grid-column: 1 / span 2;
       display: inline-flex;
       flex-direction: row;
@@ -368,7 +393,7 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
     }
 
     #detail {
-      grid-row: 3;
+      grid-row: 4;
       grid-column: 1 / span 2;
       display: flex;
       flex-wrap: wrap;
@@ -394,8 +419,9 @@ import { make as TicketForm } from "../components/tickets/TicketForm.res.mjs";
     }
 
     #payment {
-      grid-row: 4;
+      grid-row: 5;
       grid-column: 1 / span 2;
+      margin-bottom: var(--spacing-600);
     }
   }
 </style>

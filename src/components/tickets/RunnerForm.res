@@ -1,16 +1,6 @@
 open Domain
 open Interopt
 
-let isValid = (runner: runner) => {
-  runner.firstName->isNotEmptyString &&
-  runner.lastName->isNotEmptyString &&
-  runner.email->isNotEmptyString &&
-  runner.phone->isNotEmptyString &&
-  runner.birthyear > 1945 &&
-  runner.birthyear <= 2013 &&
-  runner.residence->isNotEmptyString
-}
-
 @react.component
 let make = (
   ~runner: runner,
@@ -19,9 +9,9 @@ let make = (
   ~submit: unit => unit,
 ) => {
   let (className, setClassName) = React.useState(_ => "")
-  let detailRef = React.useRef(Nullable.null)
+  let formRef = React.useRef(Nullable.null)
   React.useEffect0(() => {
-    switch detailRef.current {
+    switch formRef.current {
     | Value(node) => scrollIntoView(node, ~scrollIntoViewOptions={behavior: "smooth"})
     | _ => ()
     }
@@ -29,16 +19,23 @@ let make = (
     None
   })
 
-  let submitHandler = ev => {
-    ev->JsxEvent.Mouse.preventDefault
-    if isValid(runner) {
-      submit()
-    } else {
-      setClassName(_ => "invalid-form")
+  let isValidForm = () => {
+    switch formRef.current {
+    | Nullable.Value(formElement) => formElement->checkValidity()
+    | _ => false
     }
   }
 
-  <div id="detail" ref={ReactDOM.Ref.domRef(detailRef)} className={className}>
+  let submitHandler = ev => {
+    Console.log("yzow")
+    ev->JsxEvent.Form.preventDefault
+    if isValidForm() {
+      submit()
+    }
+  }
+
+  <form
+    id="detail" ref={ReactDOM.Ref.domRef(formRef)} className={className} onSubmit={submitHandler}>
     <h3> {React.string("Info loper")} </h3>
     <div>
       <label> {React.string("Afstand")} </label>
@@ -157,9 +154,16 @@ let make = (
         }}>
         {React.string("Annuleer")}
       </Button>
-      <Button primary={true} type_={"submit"} onClick={submitHandler}>
+      <Button
+        primary={true}
+        type_={"submit"}
+        onClick={_ => {
+          if !isValidForm() {
+            setClassName(_ => "invalid-form")
+          }
+        }}>
         {React.string("Bevestig!")}
       </Button>
     </div>
-  </div>
+  </form>
 }

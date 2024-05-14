@@ -1,22 +1,12 @@
 open Domain
 open Interopt
 
-@scope("import.meta.env") @val external _turnstileKey: string = "PUBLIC_TURNSTILE"
-/*
-Dummy sitekeys and secret keys
-
-Sitekey	Description	Visibility
-1x00000000000000000000AA	Always passes	visible
-2x00000000000000000000AB	Always blocks	visible
-1x00000000000000000000BB	Always passes	invisible
-2x00000000000000000000BB	Always blocks	invisible
-3x00000000000000000000FF	Forces an interactive challenge	visible
- */
-
-let turnstileKey = _turnstileKey
-
 @react.component
-let make = (~contactPerson: contactPerson, ~update: contactPerson => unit) => {
+let make = (
+  ~contactPerson: contactPerson,
+  ~update: contactPerson => unit,
+  ~formRef: ReactDOM.domRef,
+) => {
   let updateContactPerson = (map: (contactPerson, string) => contactPerson) => {
     ev => {
       ev
@@ -55,9 +45,8 @@ let make = (~contactPerson: contactPerson, ~update: contactPerson => unit) => {
       collector: Belt.Option.map(p.collector, _ => v),
     }
   })
-  let updateTurnStileKey = token => update({...contactPerson, turnstileToken: Some(token)})
 
-  <div id="info">
+  <form id="info" ref={formRef}>
     <h2> {str("Besteller")} </h2>
     //
     <label> {str("Voornaam")} </label>
@@ -107,8 +96,5 @@ let make = (~contactPerson: contactPerson, ~update: contactPerson => unit) => {
         />
       </>
     }}
-    //
-    <label> {str("Even checken of je een echte persoon bent!")} </label>
-    <Turnstile siteKey={turnstileKey} onSuccess={updateTurnStileKey} />
-  </div>
+  </form>
 }
