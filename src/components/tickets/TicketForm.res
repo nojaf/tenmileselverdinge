@@ -228,7 +228,7 @@ let make = () => {
             formRef={ReactDOM.Ref.domRef(contactPersonFormRef)}
           />
           <div
-            id="turnstile"
+            id="turnstile-container"
             className={switch model.turnstile {
             | Missing => "missing"
             | _ => ""
