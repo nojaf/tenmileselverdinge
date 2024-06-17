@@ -422,7 +422,7 @@ function routeToColor(route) {
   }
 }
 
-import tenMilesCoords from "./ten-miles-trail.json";
+import tenMilesCoords from "./map/ten-miles-trail.json";
 
 const tenMilesData = {
   type: "Feature",
@@ -447,7 +447,7 @@ const tenMilesTrail = {
   },
 };
 
-import eightKmCoords from "./8km-trail.json";
+import eightKmCoords from "./map/8km-trail.json";
 
 const eightKmData = {
   type: "Feature",

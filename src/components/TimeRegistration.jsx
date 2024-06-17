@@ -49,7 +49,7 @@ function TimeRegistration() {
       evt.preventDefault();
 
       const isLocal = window.location.hostname === "localhost";
-      const start = isLocal ? new Date() : new Date(2023, 8, 23, 16, 0, 0, 0);
+      const start = isLocal ? new Date() : new Date(2024, 8, 28, 15, 30, 0, 0);
       const end = (() => {
         if (isLocal) {
           const date = new Date();

@@ -4,7 +4,7 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout
   title="Home"
-  description="Op zaterdag 23 september 2023 organiseert LC De Stresskikkers de eerste editie van de Ten Miles loopwedstrijd van Elverdinge! Om 16u starten we met een 10 miles (16 km) of 8 km fun race in en rondom Elverdinge. Na afloop is er aansluitend maaltijd en Oktoberfest."
+  description="Op zaterdag 28 september 2024 organiseert LC De Stresskikkers de tweede editie van de Ten Miles loopwedstrijd van Elverdinge! Om 16u starten we met een 10 miles (16 km) of 8 km fun race in en rondom Elverdinge. Na afloop is er aansluitend maaltijd en Oktoberfest."
 >
   <main>
     <small>Loopclub de Stresskikkers<br/>presenteert</small>
@@ -29,7 +29,6 @@ import Layout from "../layouts/Layout.astro";
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
   }
 
   small {
@@ -46,7 +45,7 @@ import Layout from "../layouts/Layout.astro";
   }
 
   h1, h2 {
-    font-size: var(--font-700);
+    font-size: var(--font-600);
   }
   
   h1 {
@@ -62,17 +61,22 @@ import Layout from "../layouts/Layout.astro";
   @media screen and (min-width: 400px) {
     h1,
     h2 {
-      font-size: var(--font-700);
+      font-size: var(--font-800);
     }
   }
 
   @media screen and (min-width: 768px) {
     h1 {
-      font-size: var(--font-900);
+      font-size: var(--font-950);
     }
 
     h2 {
-      font-size: var(--font-800);
+      font-size: var(--font-900);
+    }
+
+    h3 {
+      margin-top: var(--spacing-400);
+      font-size: var(--font-700);
     }
   }
   
@@ -82,7 +86,7 @@ import Layout from "../layouts/Layout.astro";
 
   #cta button {
     font-size: var(--unit-2);
-    padding: var(--unit);
+    padding: var(--font-200);
     color: var(--white);
     background-color: var(--dark);
     border-color: var(--dark-border);

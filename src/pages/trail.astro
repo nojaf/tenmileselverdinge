@@ -1,0 +1,102 @@
+---
+import { make as Map } from "../components/map/Map.res.mjs";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Parcours"
+  description="Op zaterdag 28 september 2024 organiseert LC De Stresskikkers de tweede editie van de Ten Miles loopwedstrijd van Elverdinge! Om 16u starten we met een 10 miles (16 km) of 8 km fun race in en rondom Elverdinge. Na afloop is er aansluitend maaltijd en Oktoberfest."
+>
+  <main id="map">
+    <Map client:only="react" />
+  </main>
+  <legend>
+    <ul>
+      <li>
+        <iconify-icon
+          icon="ion:square"
+          width="20"
+          height="20"
+          style="color: var(--ten-miles)"></iconify-icon>Ten Miles
+      </li>
+      <li>
+        <iconify-icon
+          icon="ion:square"
+          width="20"
+          height="20"
+          style="color: var(--eight-km)"></iconify-icon>8 km
+      </li>
+      <!-- <li>
+        <iconify-icon
+          icon="ooui:flag-ltr"
+          width="20"
+          height="20"
+          style="color: var(--signaller)"></iconify-icon>Seingever
+      </li>
+      <li>
+        <iconify-icon
+          icon="icon-park-outline:fence-two"
+          width="20"
+          height="20"
+          style="color: var(--fence)"></iconify-icon>Nadar
+      </li> -->
+      <!-- <li>
+        <iconify-icon icon="noto-v1:man-police-officer"></iconify-icon>
+        Politie
+      </li> -->
+    </ul>
+  </legend>
+</Layout>
+<style is:global>
+  :root {
+    --ten-miles: #fb778fcc;
+    --eight-km: #fef160cc;
+    --signaller: #7f75b9;
+    --fence: var(--dark-900);
+  }
+
+  #map {
+    flex: 1 0 auto;
+    width: 100%;
+    max-width: initial;
+    margin: 0;
+    padding: 0;
+  }
+
+  #map-container {
+    height: 100%;
+    width: 100%;
+  }
+</style>
+<style>
+  legend {
+    position: fixed;
+    bottom: var(--spacing-300);
+    right: var(--spacing-300);
+    background-color: white;
+    z-index: 10;
+    padding: var(--radius);
+    border-radius: var(--radius);
+    font-family: var(--heading-font);
+  }
+
+  legend ul {
+    margin: 0;
+    padding: 0 var(--spacing-400);
+    list-style: none;
+  }
+
+  legend ul li {
+    display: flex;
+    align-content: center;
+    padding: var(--spacing-50) 0;
+  }
+
+  legend ul li iconify-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-right: var(--spacing-200);
+    align-self: center;
+  }
+</style>
