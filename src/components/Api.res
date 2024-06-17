@@ -19,4 +19,7 @@ if isLocalHost {
   Functions.connectFunctionsEmulator(functions, "localhost", 6004)
 }
 
-let createOrder = Functions.httpsCallable(functions, ~name=Domain.FunctionNames.createOrder)
+let createOrder: Firebase.Functions.httpsCallable<
+  Domain.createOrderRequest,
+  string,
+> = Functions.httpsCallable(functions, ~name=Domain.FunctionNames.createOrder)
